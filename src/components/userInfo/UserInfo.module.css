@@ -1,0 +1,142 @@
+.BOX_USER {
+    width: 100%;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    /* border: 1px solid blue; */
+    font-family: "CORDOBA";
+}
+
+.LOGO {
+    width: 50%;
+    height: 80dvh;
+}
+
+.USER_DATA {
+    width: 50%;
+    margin-left: 50px;
+}
+
+.USER_DATA h1 {
+    color: #006ab9;
+    font-size: 28px;
+}
+
+.USER_DATA ul {
+    list-style: none;
+    padding: 0px;
+    margin-top: 40px;
+}
+
+.USER_DATA ul li {
+    margin-top: 20px;
+    font-size: 15px;
+    color: #909090;
+}
+
+.USER_DATA ul li span {
+    color: #2881c4 !important;
+}
+
+.USER_BUTTONS {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    /* flex-wrap: wrap; */
+}
+
+.Mod {
+    width: 25%;
+    height: 40px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background-color: #006ab9;
+    border: 1px solid #006ab9;
+    color: #cfe3f1;
+    cursor: pointer;
+    font-family: "CORDOBA";
+}
+
+.Exit {
+    width: 25%;
+    height: 40px;
+    border-radius: 10px;
+    background-color: #a8aaab;
+    border: 1px solid #a8aaab;
+    color: #d7d8d9;
+    cursor: pointer;
+    font-family: "CORDOBA";
+}
+
+.USER_DATA ul li {
+    margin-top: 20px;
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    color: #909090;
+}
+
+.USER_DATA ul li span {
+    color: #2881c4 !important;
+}
+
+.USER_DATA input {
+    width: 55%;
+    height: 20px;
+    border: none;
+    border-bottom: 1px solid #858585;
+    color: #5c5c5c;
+    font-family: "cordoba";
+    font-size: 15px;
+}
+
+.USER_DATA input:focus {
+    outline: none;
+    border-bottom: 1px solid #858585;
+}
+
+
+.CLIENT_BUTTONS {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.CLIENT_BUTTONS button {
+    width: 100%;
+}
+
+/* Responsive */
+
+@media (max-width: 1000px) {
+    .BOX_USER {
+        width: 100%;
+        background-color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        font-family: "CORDOBA";
+    }
+
+    .USER_DATA {
+        width: 90%;
+    }
+
+    .LOGO {
+        display: none;
+    }
+
+    .USER_DATA input {
+        width: 90%;
+    }
+
+    .Mod {
+        width: 90%;
+    }
+
+    .Exit {
+        width: 90%;
+    }
+}

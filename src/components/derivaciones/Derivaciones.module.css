@@ -1,0 +1,144 @@
+.DERIVACIONES_CONTAINER {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+.derivacion-sidebar-container {
+    width: 100%;
+    display: flex;
+}
+
+.Sidebar_derivaciones {
+    width: 20%;
+    height: 50dvh;
+}
+
+.Sidebar_derivaciones aside ul {
+    width: 100%;
+    height: 100%;
+}
+
+.FORM_DERIVACIONES {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-family: "CORDOBA";
+}
+
+.BOX_FORM {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-family: "CORDOBA";
+}
+
+.BOX_FORM input,
+select,
+textarea {
+    width: 60%;
+    height: 40px;
+    margin-top: 20px;
+    border-radius: 5px;
+    border: 0.5px solid grey;
+    font-family: "CORDOBA";
+    color: #757575;
+    padding-left: 10px;
+}
+
+.BOX_FORM textarea {
+    height: 100px;
+}
+
+.BOX_FORM select {
+    width: 62%;
+    padding-left: 10px;
+}
+.BOTONES_FORM {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.BOTONES_FORM button {
+    width: 60%;
+    height: 25px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 5px;
+    font-family: "CORDOBA";
+    background-color: #006ab9;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.LINK_BUTTON {
+    text-decoration: none;
+    width: 100%;
+    text-align: center;
+}
+
+.LINK_BUTTON button {
+    background-color: #a4a0a0;
+}
+
+/* Responsive */
+
+@media (max-width: 1000px) {
+    .DERIVACIONES_CONTAINER {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .Sidebar_derivaciones {
+        display: none;
+    }
+
+    .DERIVACIONES_CONTAINER aside {
+        display: none;
+    }
+
+    .BOTONES_FORM {
+        width: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .BOTONES_FORM button {
+        width: 70%;
+        height: 35px;
+        margin-top: 15px;
+    }
+
+    .FORM_DERIVACIONES {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .BOX_FORM {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-family: "CORDOBA";
+    }
+
+    .BOX_FORM input,
+    select,
+    textarea {
+        width: 80%;
+    }
+
+    .BOX_FORM select {
+        width: 82%;
+    }
+}

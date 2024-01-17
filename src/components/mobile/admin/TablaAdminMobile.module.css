@@ -1,0 +1,217 @@
+/* //------Containers------- */
+
+.tableMobile-container {
+    width: 100%;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    font-family: "CORDOBA";
+}
+
+.cards-container {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-tableMobile {
+    width: 80%;
+    height: 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+/* //--------Input--------- */
+.search-input {
+    width: 70%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.search-input::placeholder {
+    color: #999;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #66afe9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* //---------Button-------- */
+.search-btn {
+    width: 20%;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    background-color: #006ab9;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.search-btn:hover {
+    background-color: #005087;
+}
+
+.search-btn:focus {
+    outline: none;
+    border-color: #006ab9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* //----------------Cards------------------- */
+
+.card {
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-info-top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.card h6 {
+    margin-bottom: 30px;
+    font-size: 1rem;
+    font-weight: normal;
+    color: #66afe9;
+}
+
+.card h6 :nth-child(1) {
+    color: black;
+}
+.card p {
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.card-info-bottom {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-info-bottom span {
+    color: green;
+}
+
+.tableMobile-cerrar-session {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tableMobile-cerrar-session p {
+    cursor: pointer;
+    width: 50%;
+    color: #006ab9;
+    text-align: center;
+}
+
+.button-new-origen {
+    width: 100%;
+    height: 7rem;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-evenly;
+    align-items: center;
+    position: fixed;
+    border-top: 0.5px solid #999;
+    background-color: #fff;
+    bottom: 0;
+}
+
+.button-new-origen button {
+    width: 100%;
+    height: 2.5rem;
+    border-radius: 3px;
+    border: 1px solid #006ab9;
+    background-color: #006ab9;
+    color: #ffffff;
+    font-family: "CORDOBA";
+    font-weight: bold;
+    cursor: pointer;
+    position: sticky;
+}
+
+.button-new-origen a {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+}
+/* ------Modal buttons ------- */
+
+.modal-derivaciones {
+    font-family: "cordoba";
+    width: 90%;
+    height: 100%;
+}
+
+.BOTONES_MODAL {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.BOTONES_MODAL a {
+    height: 3rem;
+    color: #fff;
+    width: 80%;
+}
+
+.BOTONES_MODAL button {
+    width: 100%;
+    height: 100%;
+    font-family: "cordoba";
+    background-color: #0b74d1;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #ffffff;
+    border: none;
+}
+
+/* // Container popUp */
+.popUp-container {
+    margin-top: 20px;
+    margin-right: 5px;
+    /* border: 1px solid #999; */
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.popUp-text {
+    cursor: pointer;
+    border-bottom: 1px solid #66afe9;
+}
+

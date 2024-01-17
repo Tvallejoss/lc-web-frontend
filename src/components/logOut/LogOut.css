@@ -1,0 +1,25 @@
+.MODAL_LOGOUT {
+ font-family: "cordoba";
+ font-size: 15px;
+ text-align: center;
+}
+
+
+.BOTONES_MODAL {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+
+}
+
+.BOTONES_MODAL button {
+    width: 20%;
+    height: 30px;
+    font-family: "cordoba";
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #0b74d1;
+    color: #ffffff;
+}

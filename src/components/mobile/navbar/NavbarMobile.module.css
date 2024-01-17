@@ -1,0 +1,54 @@
+.navbar-container {
+    width: 100%;
+    background-color: #ffffff;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar-logo {
+    width: 60%;
+    height: auto;
+    display: flex;
+}
+
+.navbar-logo img {
+    width: 70%;
+    height: 90%;
+}
+
+.navbar-menu-icon {
+    width: 40%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.navbar-menu-icon img {
+    width: 15%;
+    height: 60%;
+    cursor: pointer;
+}
+
+/* Estilos para la navbar expandida */
+.navbar-container-open {
+    width: 100%;
+    height: 10%;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    z-index: 1;
+}
+
+.navbar-expanded {
+    display: flex;
+    height: 100dvh;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border-top: 1px solid rgba(0, 0, 0, 0.2)
+
+}

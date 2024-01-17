@@ -1,0 +1,170 @@
+.TABLA_DASH {
+    width: 80%;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+}
+
+.TABLA_NAV {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.filtros {
+    display: flex;
+    width: 35%;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "CORDOBA";
+}
+
+.filtros img {
+    width: 55px;
+    height: 50px;
+    cursor: pointer;
+}
+
+.filtros label {
+    font-size: 10px;
+    color: #006ab9;
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+.filtros input[type="date"] {
+    width: 100%;
+    border: none;
+    /* color: #006ab9; */
+    /* color: transparent; */
+    border-bottom: 1px solid #006ab9;
+    appearance: none;
+    cursor: pointer;
+    /* text-align: center; */
+}
+
+.FILTROS {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+.filtros p {
+    font-size: 10px;
+    width: 10%;
+    color: #006ab9;
+    /* margin-right: 30px; */
+}
+
+.FILTROS div {
+    display: flex;
+    flex-direction: column;
+}
+
+.busqueda {
+    width: 65%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.BOTONES {
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.BOTONES_SIDEBAR_RESPONSIVE {
+    display: none;
+}
+
+.busqueda button {
+    border-radius: 7px;
+    height: 35px;
+    width: 45%;
+    border: none;
+    cursor: pointer;
+}
+
+.APLICAR {
+    background-color: rgba(0, 106, 185, 0.8);
+    color: #ffffff;
+}
+
+.BORRAR {
+    color: #ffffff;
+    background-color: #bababa;
+}
+
+.INPUT {
+    width: 50%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.search-by {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+}
+
+.search-by span {
+    font-family: "cordoba";
+    height: auto;
+    font-size: 0.8rem;
+    color: #0b74d1;
+}
+
+.INPUT input {
+    width: 60%;
+    height: 2rem;
+    border-radius: 5px;
+    border: 1px solid grey;
+    color: black;
+    padding-left: 20px;
+}
+
+.filtro_derivaciones {
+    width: 100%;
+    height: 2rem;
+    margin: 0px;
+    padding: 0px;
+    cursor: pointer;
+}
+
+/* // TABLA  */
+
+.TABLE {
+    width: 100%;
+}
+
+.TABLA_D {
+    width: 100%;
+    margin-top: 15px;
+    font-family: Arial;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.Campos {
+    width: 100%;
+    height: 2.5rem;
+    border-radius: 5px;
+    background-color: rgba(0, 106, 185, 0.8);
+    color: #ffffff;
+    font-size: 1rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.Campos li {
+    width: 25%;
+    text-align: center;
+}

@@ -1,0 +1,158 @@
+.BOX_CLIENT {
+    width: 100%;
+    height: 100dvh;
+}
+
+.add-client-container {
+    width: 100%;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    font-family: "CORDOBA";
+}
+
+.logo-add-client {
+    width: 50%;
+    height: 100dvh;
+}
+
+.CLIENT_DATA {
+    /* border-left: 1px solid #5c5c5c; */
+    padding-left: 30px;
+    height: 100%;
+    width: 50%;
+}
+
+.CLIENT_DATA h1 {
+    width: 100%;
+    /* border: 1px solid red; */
+    color: #006ab9;
+    font-size: 28px;
+}
+
+.CLIENT_DATA ul {
+    width: 100%;
+    list-style: none;
+    padding: 0px;
+    /* margin-top: 40px; */
+}
+
+.CLIENT_DATA ul li {
+    width: 100%;
+    margin-top: 20px;
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    color: #909090;
+}
+
+.CLIENT_DATA ul li span {
+    color: #2881c4 !important;
+}
+
+.CLIENT_DATA input {
+    width: 70%;
+    height: 20px;
+    border: none;
+    border-bottom: 1px solid #858585;
+    color: #5c5c5c;
+    font-family: "cordoba";
+    font-size: 15px;
+}
+
+.CLIENT_DATA input:focus {
+    outline: none;
+    border-bottom: 1px solid #858585;
+}
+
+.CLIENT_BUTTONS {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    /* flex-wrap: wrap; */
+}
+
+.Mod {
+    width: 50%;
+    height: 40px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background-color: #006ab9;
+    border: 1px solid #006ab9;
+    color: #cfe3f1;
+    cursor: pointer;
+    font-family: "CORDOBA";
+}
+
+.Exit {
+    width: 50%;
+    height: 40px;
+    border-radius: 10px;
+    background-color: #a8aaab;
+    border: 1px solid #a8aaab;
+    color: #d7d8d9;
+    cursor: pointer;
+    font-family: "CORDOBA";
+}
+
+
+
+@media (max-width: 1000px) {
+    .add-client-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .CLIENT_DATA {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0px;
+    }
+
+    .CLIENT_DATA h1 {
+        width: 100%;
+        text-align: center;
+    }
+
+    .CLIENT_DATA ul {
+        width: 90%;
+    }
+
+    .CLIENT_DATA li {
+        width: 100%;
+    }
+
+    .CLIENT_DATA input {
+        width: 99%;
+    }
+
+    .CLIENT_DATA select {
+        width: 99%;
+    }
+
+    .CLIENT_BUTTONS {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .Mod {
+        width: 70%;
+        height: 2.5rem;
+    }
+
+    .CLIENT_BUTTONS a {
+        width: 70%;
+        height: 2.5rem;
+    }
+    .Exit {
+        width: 100%;
+    }
+}

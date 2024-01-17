@@ -1,0 +1,199 @@
+.EXCEL_CONTAINER {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+.BOX_EXCEL {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    font-family: "CORDOBA";
+}
+
+.Excel-sidebar-container {
+    width: 100%;
+    display: flex;
+}
+
+.Sidebar_derivaciones {
+    width: 20%;
+    height: 50dvh;
+}
+
+.Sidebar_derivaciones aside ul {
+    width: 100%;
+    height: 100%;
+}
+
+.UPLOAD {
+    width: 55%;
+    height: 400px;
+    border-radius: 15px;
+    border: 1px solid #026bb9;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.ICONOS_EXCEL {
+    width: 80%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.ICONOS_EXCEL img:nth-child(1) {
+    width: 90px;
+    height: 90px;
+}
+
+.ICONOS_EXCEL img:nth-child(2) {
+    width: 60px;
+    height: 60px;
+}
+
+.UPLOAD p {
+    color: #287cd8;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.UPLOAD button {
+    height: 30px;
+    font-family: "CORDOBA";
+    background-color: #0b74d1;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.INPUT_FILE {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.INPUT_FILE::before {
+    font-family: "CORDOBA";
+    content: "Buscar Archivo";
+    color: #ffffff;
+    background-color: #0b74d1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    cursor: pointer;
+}
+
+.INPUT_FILE input {
+    opacity: 0;
+    cursor: pointer;
+    width: 200px;
+    height: 32px;
+    display: inline-block;
+}
+
+.BOTONES_EXCEL {
+    display: flex;
+    width: 60%;
+    margin-top: 20px;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.BOTONES_EXCEL button {
+    width: 30%;
+    height: 2.5rem;
+    margin-top: 15px;
+    border: none;
+    border-radius: 5px;
+    font-family: "CORDOBA";
+    background-color: #006ab9;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.BOTONES_EXCEL a {
+    width: 30%;
+}
+
+.BOTONES_EXCEL a button {
+    width: 100%;
+}
+.EXCEL_BUTTON {
+    text-decoration: none;
+    width: 100%;
+    text-align: center;
+}
+
+.EXCEL_BUTTON button {
+    background-color: #a4a0a0;
+}
+.BOTONES_EXCEL button:nth-child(2) {
+    background-color: #a4a0a0;
+}
+
+.DROP_AREA {
+    border: 1px solid #026bb9;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+
+@media (max-width: 1000px) {
+    .EXCEL_CONTAINER {
+        flex-direction: column;
+    }
+
+    .Sidebar_derivaciones {
+        display: none;
+    }
+
+    .BOX_EXCEL {
+        width: 100%;
+        height: 80dvh;
+    }
+
+    .UPLOAD .DROP_AREA {
+        width: 100%;
+        height: 100%;
+    }
+
+    .BOTONES_EXCEL {
+        width: 100%;
+        height: 8rem;
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .BOTONES_EXCEL button {
+        width: 50%;
+    }
+
+    .BOTONES_EXCEL a {
+        width: 50%;
+    }
+
+    .BOTONES_EXCEL a button {
+        width: 100%;
+    }
+}

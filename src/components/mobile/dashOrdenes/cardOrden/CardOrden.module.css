@@ -1,0 +1,86 @@
+/* //----------------Cards------------------- */
+
+.card {
+    width: 85%;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.card-imagenes {
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.card-imagenes img {
+    width: 30px;
+}
+
+.card-imagenes a {
+    width: auto;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-info-top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.card h6 {
+    margin-bottom: 30px;
+    font-size: 1rem;
+    font-weight: normal;
+    color: #66afe9;
+}
+
+.card h6 :nth-child(1) {
+    color: black;
+}
+.card p {
+    margin: 0;
+}
+
+.card p {
+    font-weight: bold;
+}
+
+.card-info-bottom {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-info-bottom p {
+    font-size: 0.8rem;
+}
+
+
+
+.ROJO {
+    color: #f2617a;
+    font-weight: 700;
+}
+
+.VERDE {
+    color: #5bd95f;
+    font-weight: 700;
+}
+
+.DISABLE {
+    color: #7c7777;
+    font-weight: 700;
+}
+
+.PENDIENTE {
+    color: #e4ce06;
+    font-weight: 700;
+}

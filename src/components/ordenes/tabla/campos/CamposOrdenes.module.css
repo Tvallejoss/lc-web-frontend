@@ -1,0 +1,73 @@
+.VALORES {
+    display: flex;
+    width: 100%;
+    height: 3rem;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+    justify-content: space-around;
+    border-bottom: 1px solid hsl(0, 0%, 52%);
+    font-family: "cordoba";
+    font-size: 0.8rem;
+    cursor: pointer;
+    list-style: none;
+    /* border: 1px solid red; */
+}
+
+.VALORES:hover {
+    background-color: #e8e4e4;
+}
+
+.CHECK {
+    width: 10% !important;
+}
+
+.VALORES li {
+    width: 25%;
+    text-align: center;
+}
+
+.VALORES li p {
+    width: 100%;
+    text-align: center;
+}
+
+.ROJO {
+    color: #f2617a;
+    font-weight: 700;
+}
+
+.VERDE {
+    color: #5bd95f;
+    font-weight: 700;
+}
+
+.DISABLE {
+    color: #7c7777;
+    font-weight: 700;
+}
+
+.PENDIENTE {
+    color: #e4ce06;
+    font-weight: 700;
+}
+
+a {
+    width: 100%;
+    text-decoration: none;
+    color: black;
+}
+
+.acciones-ordenes {
+    display: flex;
+    justify-content: center;
+}
+
+.acciones-ordenes img {
+    width: 30px;
+    height: 30px;
+}
+
+.acciones-ordenes a {
+    width: auto;
+}

@@ -1,0 +1,44 @@
+.VALORES {
+    display: flex;
+    width: 100%;
+    height: 3rem;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+    justify-content: space-around;
+    border-bottom: 1px solid hsl(0, 0%, 52%);
+    font-family: "cordoba";
+    font-size: 13px;
+    cursor: pointer;
+    list-style: none;
+}
+
+.VALORES:hover {
+    background-color: #e8e4e4;
+}
+
+.VALORES li {
+    width: 25%;
+    text-align: center;
+}
+
+.VALORES li p {
+    width: 100%;
+    text-align: center;
+}
+
+.ROJO {
+    color: #f2617a;
+    font-weight: 700;
+}
+
+.VERDE {
+    color: #5bd95f;
+    font-weight: 700;
+}
+
+a {
+    width: 100%;
+    text-decoration: none;
+    color: black;
+}
