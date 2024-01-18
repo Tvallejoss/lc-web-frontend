@@ -5,7 +5,7 @@
 # How to Install and Run the Project 🚀 
 
 #1
-Node -V **16.15.1** (use nvm)
+Node -V **20.11.0** (use nvm)
 
 #2
 npm install (install all libraries)
