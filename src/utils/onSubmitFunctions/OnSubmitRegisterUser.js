@@ -4,8 +4,6 @@ import axios from "axios";
 import { addToken } from "../auth/addToken";
 const config = require("../../config");
 
-// const jwt = require("jsonwebtoken");
-
 //FUNCION PARA REGISTRAR CLIENTES
 export const OnSubmitRegisterUser = (
     estado,

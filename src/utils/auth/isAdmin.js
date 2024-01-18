@@ -1,10 +1,11 @@
-const jwt = require("jsonwebtoken");
+import { jwtDecode } from "jwt-decode";
 
 export const isAdmin = () => {
     const token = JSON.parse(localStorage.getItem("UserLoggedInfo"));
+    const decoded = jwtDecode(token)
     if (
         Object.entries(token).length === 0 ||
-        jwt.decode(token).rol !== "ADMIN"
+        decoded.rol !== "ADMIN"
     ) {
         return false;
     }

@@ -1,7 +1,7 @@
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
-const jwt = require("jsonwebtoken");
+import { jwtDecode } from "jwt-decode";
 const config = require("../../config");
 
 //FUNCION PARA LOGEARSE
@@ -24,7 +24,7 @@ export const OnSubmitUserLog = (
                         JSON.stringify(data)
                     );
                     DISPATCH(setEstado(data));
-                    const decodedToken = jwt.decode(data);
+                    const decodedToken = jwtDecode(data)
                     if (decodedToken.rol === "ADMIN") {
                         NAVIGATE("/ADMIN");
                     } else {

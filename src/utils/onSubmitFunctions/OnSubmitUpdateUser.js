@@ -1,7 +1,6 @@
 import axios from "axios";
 import config from "../../config";
 import { addToken } from "../auth/addToken";
-// const jwt = require("jsonwebtoken");
 
 //Funcion para modificar clientes
 export const OnSubmitUpdateUser = (
