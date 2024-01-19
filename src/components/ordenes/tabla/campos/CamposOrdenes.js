@@ -5,12 +5,10 @@ import axios from "axios";
 import config from "../../../../config";
 import { decryptObj } from "../../../../utils/secure-data/decrypt";
 import { encrypt } from "../../../../utils/secure-data/crypt";
-import pako from "pako";
 
 import classes from "./CamposOrdenes.module.css";
 
 export const CamposOrdenes = ({ derivacion, selectAll }) => {
-    const [pdfComprimido, setPdfComprimido] = useState();
     const [nobilisOrdenInfo, setNobilisOrdenInfo] = useState(null);
 
     useEffect(() => {
@@ -43,16 +41,6 @@ export const CamposOrdenes = ({ derivacion, selectAll }) => {
         }
     }, []);
 
-    useEffect(() => {
-        // Comprime el PDF
-        if (nobilisOrdenInfo) {
-            const pdfToCompress = nobilisOrdenInfo.pdfProtocol || "";
-            const compressedPdf = pako.deflate(pdfToCompress, { to: "string" });
-            setPdfComprimido(compressedPdf);
-        }
-    }, [nobilisOrdenInfo]);
-
-
     return (
         <ol className={classes["VALORES"]}>
             <li className={classes["CHECK"]}>
@@ -84,11 +72,7 @@ export const CamposOrdenes = ({ derivacion, selectAll }) => {
                             alt="download--v1"
                         />
 
-                        <Link
-                            to={`/PDF_PACIENTE/${encodeURIComponent(
-                                pdfComprimido
-                            )}`}
-                        >
+                        <Link to={`/PDF_PACIENTE/${derivacion.idOrden}`}>
                             <img
                                 src="https://cdn.discordapp.com/attachments/1095387607409635330/1124328592143294554/icons8-ver-48.png"
                                 alt="download--v1"

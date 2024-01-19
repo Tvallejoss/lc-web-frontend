@@ -1,9 +1,11 @@
 // Hooks
+import axios from "axios";
+import config from "../../config/";
+import { decryptObj } from "../../utils/secure-data/decrypt";
+import { encrypt } from "../../utils/secure-data/crypt";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import pako from "pako";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 // Styles
 import "./PDFviewer.css";
@@ -18,25 +20,38 @@ export const PDFviewer = () => {
     const [pdfContent, setPdfContent] = useState(null);
     const { pdf } = useParams();
 
-    //State Global
-    const pdfGlobal = useSelector((state) => state.pdfByOrdenSelected);
+    const [nobilisOrdenInfo, setNobilisOrdenInfo] = useState(null);
 
     useEffect(() => {
-        if (pdf) {
-            try {
-                const arrayNumerico = pdf.split(",").map(Number);
-                const uncompressedPdf = pako.inflate(arrayNumerico, {
-                    to: "string",
-                });
+        const token = JSON.parse(localStorage.getItem("UserLoggedInfo"));
 
-                setPdfContent("data:application/pdf;base64," + uncompressedPdf);
-            } catch (error) {
-                console.error("Error al descomprimir el PDF:", error);
-            }
-        } else {
-            console.error("El valor de pdf es nulo o indefinido.");
+        if (token) {
+            const getEstadoByOrden = async () => {
+                try {
+                    const { data } = await axios.post(
+                        config.IP + config.PUERTO + "/resultadoByOrden",
+                        {
+                            token: token,
+                            idOrden: await encrypt(config.KEY, pdf),
+                        }
+                    );
+
+                    const resultadoDecrypt = await decryptObj(data);
+                    setNobilisOrdenInfo(resultadoDecrypt);
+
+                    const pdfSrc = `data:application/pdf;base64,${resultadoDecrypt.pdfProtocol}`;
+                    setPdfContent(pdfSrc);
+                } catch (error) {
+                    console.log(
+                        "Error Axios al traer el estado de la orden en Mobile",
+                        error
+                    );
+                    return error;
+                }
+            };
+            getEstadoByOrden();
         }
-    }, [pdf]);
+    }, []);
 
     return (
         <div className="BOX_PDF ">
@@ -52,23 +67,26 @@ export const PDFviewer = () => {
                     <Sidebar />
                 </div>
                 <div className="PDF">
-                    <object
-                        data={pdfContent}
-                        type="application/pdf"
-                        width="400"
-                        height="750"
-                        className="PDF_SELECT"
-                    >
-                        <p>
-                            Tu navegador no puede mostrar este archivo PDF.
-                            Puedes descargarlo
-                            <a href={pdfContent} download>
-                                aquí
-                            </a>
-                            .
-                        </p>
-                    </object>
-
+                    {nobilisOrdenInfo?.pdfProtocol ? (
+                        <object
+                            data={pdfContent}
+                            type="application/pdf"
+                            width="400"
+                            height="750"
+                            className="PDF_SELECT"
+                        >
+                            <p>
+                                Tu navegador no puede mostrar este archivo PDF.
+                                Puedes descargarlo
+                                <a href={pdfContent} download>
+                                    aquí
+                                </a>
+                                .
+                            </p>
+                        </object>
+                    ) : (
+                        "ERROR"
+                    )}
                     <div className="boton-pdf-volver">
                         <button onClick={() => navigate(-1)}>VOLVER</button>
                     </div>

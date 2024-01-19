@@ -2,14 +2,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import pako from "pako";
 
 // Styles
 import classes from "./CardOrden.module.css";
-
-// States
-// import { setPdfByOrdenSelected } from "../../../../state/pdfByOrdenSelected";
-// import { useDispatch } from "react-redux";
 
 // Config
 import config from "../../../../config";
@@ -17,7 +12,6 @@ import { decryptObj } from "../../../../utils/secure-data/decrypt";
 import { encrypt } from "../../../../utils/secure-data/crypt";
 
 export const CardOrden = ({ orden }) => {
-    const [pdfComprimido, setPdfComprimido] = useState();
     const [nobilisOrdenInfo, setNobilisOrdenInfo] = useState(null);
 
     useEffect(() => {
@@ -47,15 +41,6 @@ export const CardOrden = ({ orden }) => {
         }
     }, []);
 
-    useEffect(() => {
-        // Comprime el PDF
-        if (nobilisOrdenInfo) {
-            const pdfToCompress = nobilisOrdenInfo.pdfProtocol || "";
-            const compressedPdf = pako.deflate(pdfToCompress, { to: "string" });
-            setPdfComprimido(compressedPdf);
-        }
-    }, [nobilisOrdenInfo]);
-
     return (
         <div to={"/dashboard/" + orden.id} className={classes["card"]}>
             <div>
@@ -70,11 +55,7 @@ export const CardOrden = ({ orden }) => {
                                     alt="download--v1"
                                 />
 
-                                <Link
-                                    to={`/PDF_PACIENTE/${encodeURIComponent(
-                                        pdfComprimido
-                                    )}`}
-                                >
+                                <Link to={`/PDF_PACIENTE/${orden.idOrden}`}>
                                     <img
                                         src="https://cdn.discordapp.com/attachments/1095387607409635330/1124328592143294554/icons8-ver-48.png"
                                         alt="download--v1"
