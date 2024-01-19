@@ -1,10 +1,13 @@
 // Hooks
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Modal from "react-modal";
 
 // Styles
 import classes from "./TablaMobile.module.css";
+
+// Components
+import { SearchInputMobile } from "../../searchInput/SearchInput";
 
 const ModalButtonsDerivaciones = ({ isOpen, onClose }) => {
     return (
@@ -42,14 +45,20 @@ const ModalButtonsDerivaciones = ({ isOpen, onClose }) => {
     );
 };
 
-export const TablaMobile = ({ data }) => {
+export const TablaMobile = ({ allCampos }) => {
+    // Campos State
+    const [campos, setCampos] = useState([]);
+    useEffect(() => {
+        setCampos(allCampos);
+    }, [allCampos]);
+
     //Modal Functions
     const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
 
     const handleModalButton = () => {
         setIsConfirmationOpen(true);
     };
-    
+
     // eslint-disable-next-line
     const handleConfigModal = () => {
         setIsConfirmationOpen(false);
@@ -58,19 +67,18 @@ export const TablaMobile = ({ data }) => {
     const handleCloseConfirmation = () => {
         setIsConfirmationOpen(false);
     };
+
     return (
         <div className={classes["tableMobile-container"]}>
-            <div className={classes["search-tableMobile"]}>
-                <input
-                    placeholder="#1111"
-                    className={classes["search-input"]}
-                />
-                <button className={classes["search-btn"]}>Buscar</button>
-            </div>
+            <SearchInputMobile
+                setCampos={setCampos}
+                allCampos={allCampos}
+                selectOptions={["id"]}
+            />
 
             <div className={classes["cards-container"]}>
-                {data.length ? (
-                    data.map((derivacion, i) => {
+                {campos.length ? (
+                    campos.map((derivacion, i) => {
                         return (
                             <Link
                                 to={"/dashboard/" + derivacion.id}

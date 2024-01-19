@@ -2,6 +2,7 @@
 import { SyncLoader } from "react-spinners";
 import { Campos } from "./campos/Campos";
 import { TablaMobile } from "../../mobile/dashDerivaciones/TablaMobile";
+import { SearchInput } from "../../searchInput/SearchInput";
 
 //Hooks
 import React, { useState, useEffect } from "react";
@@ -31,16 +32,17 @@ const ModalCargando = () => {
 };
 
 export const Tabla = () => {
+    // Campos State
     const [campos, setCampos] = useState([]);
     const [allCampos, setAllCampos] = useState([]);
-    const [search, setSearch] = useState("");
-    const [filtro, setFiltro] = useState("id");
 
+    // Loading State
     const [loading, setLoading] = useState(true);
 
-    // Filtro fechas
+    // Filtro fechas States
     const [fechaDesde, setFechaDesde] = useState("");
     const [fechaHasta, setFechaHasta] = useState("");
+
     const fechaDesdeValue = (e) => {
         setFechaDesde(e.target.value);
     };
@@ -70,21 +72,6 @@ export const Tabla = () => {
     };
 
     useEffect(() => {
-        if (search) {
-            const filteredDerivacion = allCampos.filter((derivacion) => {
-                console.log("DDDD", derivacion);
-                return derivacion[filtro]
-                    .toLowerCase()
-                    .includes(search.toLowerCase());
-            });
-            setCampos(filteredDerivacion);
-            return;
-        } else {
-            setCampos(allCampos);
-        }
-    }, [search]);
-
-    useEffect(() => {
         const token = JSON.parse(localStorage.getItem("UserLoggedInfo"));
 
         if (token) {
@@ -111,7 +98,8 @@ export const Tabla = () => {
     }, [window.innerWidth]);
 
     //VIEW MOBILE
-    if (window.innerWidth <= 1000) return <TablaMobile data={campos} />;
+    if (window.innerWidth <= 1000)
+        return <TablaMobile allCampos={allCampos} />;
 
     return (
         <div className={classes["TABLA_DASH"]}>
@@ -146,25 +134,12 @@ export const Tabla = () => {
                         </button>
                     </div>
 
-                    <div className={classes["INPUT"]}>
-
-                        <div className={classes["search-by"]}>
-
-                        <span>Buscar por:</span>
-                        <select
-                            className={classes["filtro_derivaciones"]}
-                            name="filtro"
-                            onChange={(e) => setFiltro(e.target.value)}
-                            >
-                            <option value="id">Id</option>
-                            <option value="nombre">Nombre</option>
-                        </select>
-                            </div>
-                        <input
-                            placeholder="Buscar"
-                            onChange={(e) => setSearch(e.target.value)}
-                        />
-                    </div>
+                    {/* Input search general */}
+                    <SearchInput
+                        setCampos={setCampos}
+                        allCampos={allCampos}
+                        selectOptions={["id", "nombre"]}
+                    />
                 </div>
             </div>
 

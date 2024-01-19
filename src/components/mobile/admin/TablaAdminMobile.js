@@ -1,5 +1,5 @@
 // Hooks
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logOut } from "../../../utils/auth/logOut";
@@ -8,6 +8,8 @@ import { logOut } from "../../../utils/auth/logOut";
 import { LogOut } from "../../logOut/LogOut";
 import { NavLogo } from "../../navLogo/NavLogo";
 import { OptionsPopover } from "./popUpAdminFiles/OptionsPopover";
+import { SearchInputMobile } from "../../searchInput/SearchInput";
+import { CardAdmin } from "./cardAdmin/CardAdmin";
 
 // Styles
 import classes from "./TablaAdminMobile.module.css";
@@ -15,6 +17,12 @@ import classes from "./TablaAdminMobile.module.css";
 export const TablaAdminMobile = ({ data }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    // Campos State
+    const [campos, setCampos] = useState([]);
+    useEffect(() => {
+        setCampos(data);
+    }, [data]);
 
     //Modal Functions/states
     const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
@@ -45,13 +53,11 @@ export const TablaAdminMobile = ({ data }) => {
         <div className={classes["tableMobile-container"]}>
             <NavLogo palabra={"Admin"} />
 
-            <div className={classes["search-tableMobile"]}>
-                <input
-                    placeholder="#1111"
-                    className={classes["search-input"]}
-                />
-                <button className={classes["search-btn"]}>Buscar</button>
-            </div>
+            <SearchInputMobile
+                setCampos={setCampos}
+                allCampos={data}
+                selectOptions={["cuit"]}
+            />
 
             <div className={classes["popUp-container"]}>
                 <div
@@ -68,37 +74,9 @@ export const TablaAdminMobile = ({ data }) => {
                 />
             </div>
             <div className={classes["cards-container"]}>
-                {data.length ? (
-                    data.map((origen, i) => {
-                        return (
-                            <Link
-                                to={"/cliente/" + origen.cuit}
-                                key={i}
-                                className={classes["card"]}
-                            >
-                                <div>
-                                    <div className={classes["card-info-top"]}>
-                                        <p>#{origen.id ? origen.id : "||"}</p>
-
-                                        <p>Cuit: {origen.cuit}</p>
-                                    </div>
-                                    <div>
-                                        <h6>{origen.usernameDeUsuario}</h6>
-
-                                        <p>{origen.mail}</p>
-                                    </div>
-
-                                    <div
-                                        className={classes["card-info-bottom"]}
-                                    >
-                                        <p>
-                                            Razon Social:{" "}
-                                            <span>{origen.razonSocial}</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </Link>
-                        );
+                {campos.length ? (
+                    campos.map((origen, i) => {
+                        return <CardAdmin origen={origen} />;
                     })
                 ) : (
                     <>No hay origenes</>

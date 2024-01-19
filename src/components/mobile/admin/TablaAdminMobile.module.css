@@ -71,54 +71,6 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* //----------------Cards------------------- */
-
-.card {
-    background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    padding: 20px;
-    margin: 20px;
-    transition: box-shadow 0.3s ease-in-out;
-}
-
-.card:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.card-info-top {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-}
-
-.card h6 {
-    margin-bottom: 30px;
-    font-size: 1rem;
-    font-weight: normal;
-    color: #66afe9;
-}
-
-.card h6 :nth-child(1) {
-    color: black;
-}
-.card p {
-    font-size: 0.8rem;
-    font-weight: bold;
-    margin: 0;
-}
-
-.card-info-bottom {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-}
-
-.card-info-bottom span {
-    color: green;
-}
-
 .tableMobile-cerrar-session {
     width: 100%;
     display: flex;
@@ -214,4 +166,3 @@
     cursor: pointer;
     border-bottom: 1px solid #66afe9;
 }
-

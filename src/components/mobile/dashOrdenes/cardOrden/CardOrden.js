@@ -60,7 +60,7 @@ export const CardOrden = ({ orden }) => {
         <div to={"/dashboard/" + orden.id} className={classes["card"]}>
             <div>
                 <div className={classes["card-info-top"]}>
-                    <p>#{orden.id}</p>
+                    <p>#{orden.idOrden}</p>
 
                     {nobilisOrdenInfo ? (
                         nobilisOrdenInfo.estado === "C" ? (
@@ -95,7 +95,7 @@ export const CardOrden = ({ orden }) => {
                     <h6>
                         {" "}
                         <strong>Nombre: </strong>:{" "}
-                        {orden.nombre + orden.apellido}
+                        {orden.nombre + " " + orden.apellido}
                     </h6>
                 </div>
 
@@ -127,8 +127,8 @@ export const CardOrden = ({ orden }) => {
                     ) : (
                         <p>
                             Estado:{" "}
-                            <span className={classes["ROJO"]}>
-                                Nobilis Error
+                            <span className={classes["PENDIENTE"]}>
+                                Cargando...
                             </span>
                         </p>
                     )}

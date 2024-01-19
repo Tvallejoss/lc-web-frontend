@@ -60,7 +60,7 @@ export const CamposOrdenes = ({ derivacion, selectAll }) => {
             </li>
             <li>{derivacion.fecha} 18/08/2023</li>
             <li>{derivacion.dni}</li>
-            <li>{derivacion.nombre + derivacion.apellido}</li>
+            <li>{derivacion.nombre + " " + derivacion.apellido}</li>
 
             {nobilisOrdenInfo ? (
                 nobilisOrdenInfo.estado ? (

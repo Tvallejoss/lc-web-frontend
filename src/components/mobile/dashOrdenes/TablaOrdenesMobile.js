@@ -1,9 +1,10 @@
 // Hooks
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 
 //Components
 import { CardOrden } from "./cardOrden/CardOrden";
+import { SearchInputMobile } from "../../searchInput/SearchInput";
 
 // Styles
 import classes from "./TablaOrdenesMobile.module.css";
@@ -11,19 +12,22 @@ import classes from "./TablaOrdenesMobile.module.css";
 export const TablaOrdenesMobile = ({ ordenes }) => {
     const navigate = useNavigate();
 
+    // Campos State
+    const [campos, setCampos] = useState([]);
+    useEffect(() => {
+        setCampos(ordenes);
+    }, [ordenes]);
+
     return (
         <div className={classes["tableMobile-container"]}>
-            <div className={classes["search-tableMobile"]}>
-                <input
-                    placeholder="#1111"
-                    className={classes["search-input"]}
-                />
-                <button className={classes["search-btn"]}>Buscar</button>
-            </div>
-
+            <SearchInputMobile
+                setCampos={setCampos}
+                allCampos={ordenes}
+                selectOptions={["idOrden"]}
+            />
             <div className={classes["cards-container"]}>
-                {ordenes.length ? (
-                    ordenes.map((orden, i) => {
+                {campos.length ? (
+                    campos.map((orden, i) => {
                         return <CardOrden key={i} orden={orden} />;
                     })
                 ) : (

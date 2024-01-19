@@ -76,7 +76,7 @@ export const NavbarOpenMobile = ({ closeNavbar }) => {
             <div className={classes["navbar-option"]}>
                 {excelBase64 ? (
                     <a href={excelBase64} download>
-                        Descarg Modelo
+                        Descargar Modelo
                     </a>
                 ) : (
                     <p> Descargar Modelo</p>

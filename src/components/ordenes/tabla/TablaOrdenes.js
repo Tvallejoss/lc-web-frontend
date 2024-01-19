@@ -14,6 +14,7 @@ import { SyncLoader } from "react-spinners";
 // Components
 import { CamposOrdenes } from "./campos/CamposOrdenes";
 import { TablaOrdenesMobile } from "../../mobile/dashOrdenes/TablaOrdenesMobile";
+import { SearchInput } from "../../searchInput/SearchInput";
 
 // Styles
 import classes from "./TablaOrdenes.module.css";
@@ -38,6 +39,8 @@ const ModalCargando = () => {
 
 export const TablaOrdenes = ({ id }) => {
     const [campos, setCampos] = useState([]);
+    const [allCampos, setAllCampos] = useState([]);
+
     const [loading, setLoading] = useState(true);
     const [selectAll, setSelectAll] = useState(false);
 
@@ -70,6 +73,7 @@ export const TablaOrdenes = ({ id }) => {
                         }
                     );
                     setCampos(await decryptAll(data));
+                    setAllCampos(await decryptAll(data));
                 } catch (error) {
                     console.log(
                         "Error Axios al traer las ordenes de una derivacion",
@@ -127,10 +131,12 @@ export const TablaOrdenes = ({ id }) => {
                             Borrar Filtros
                         </button>
                     </div>
-
-                    <div className={classes["INPUT"]}>
-                        <input placeholder="Buscar" />
-                    </div>
+                    {/* Input search general */}
+                    <SearchInput
+                        setCampos={setCampos}
+                        allCampos={allCampos}
+                        selectOptions={["idOrden", "nombre", "apellido", "dni"]}
+                    />
                 </div>
             </div>
 

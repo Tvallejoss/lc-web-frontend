@@ -21,8 +21,6 @@ export const PDFviewer = () => {
     //State Global
     const pdfGlobal = useSelector((state) => state.pdfByOrdenSelected);
 
-    console.log("ORDEN PDF", pdfGlobal);
-
     useEffect(() => {
         if (pdf) {
             try {

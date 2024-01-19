@@ -29,7 +29,6 @@ export const Campos = ({ cliente, setEstado, setLoading }) => {
                 cuit: await encrypt(config.KEY, cliente.cuit),
             })
             .then(({ data }) => {
-                console.log("EL ESTADO SE CAMBIO CORRECTAMENTE");
                 setEstado(true);
                 setLoading(true);
             })

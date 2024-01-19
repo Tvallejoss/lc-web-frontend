@@ -1,0 +1,71 @@
+/* //----------------Cards------------------- */
+
+.card {
+    width: 100%;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-info-top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.card h6 {
+    margin-bottom: 30px;
+    font-size: 1rem;
+    font-weight: normal;
+    color: #66afe9;
+}
+
+.card h6 :nth-child(1) {
+    color: black;
+}
+.card p {
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.card-info-bottom {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-info-bottom span {
+    color: green;
+}
+
+.card-info-top img {
+    width: 30px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.estados {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.acciones {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 5rem;
+}
+.acciones a {
+    display: flex;
+    align-items: center;
+}
