@@ -71,8 +71,8 @@ export const Sidebar = () => {
                 </Link>
                 <li>
                     {excelBase64 ? (
-                        <a href={excelBase64} download>
-                            Descarg Modelo
+                        <a href={excelBase64} download="modelo-excel-{#NOMBRE}">
+                            Descargar Modelo
                         </a>
                     ) : (
                         <p> Descargar Modelo</p>
@@ -80,7 +80,7 @@ export const Sidebar = () => {
                 </li>
                 <li>
                     {pdfBase64 ? (
-                        <a href={pdfBase64} download>
+                        <a href={pdfBase64} download="Instructivo-de-uso">
                             Ver Instructivo
                         </a>
                     ) : (

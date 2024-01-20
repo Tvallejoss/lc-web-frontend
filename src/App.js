@@ -112,7 +112,7 @@ function App() {
                     }
                 ></Route>
                 <Route
-                    path="/PDF_PACIENTE/:pdf"
+                    path="/PDF_PACIENTE/:idOrden"
                     element={
                         <>
                             <PDFviewer />

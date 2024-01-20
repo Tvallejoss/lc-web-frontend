@@ -10,6 +10,7 @@ import classes from "./CamposOrdenes.module.css";
 
 export const CamposOrdenes = ({ derivacion, selectAll }) => {
     const [nobilisOrdenInfo, setNobilisOrdenInfo] = useState(null);
+    const [pdfContent, setPdfContent] = useState(null);
 
     useEffect(() => {
         const token = JSON.parse(localStorage.getItem("UserLoggedInfo"));
@@ -27,6 +28,12 @@ export const CamposOrdenes = ({ derivacion, selectAll }) => {
                             ),
                         }
                     );
+
+                    const resultadoDecrypt = await decryptObj(data);
+                    setNobilisOrdenInfo(resultadoDecrypt);
+
+                    const pdfSrc = `data:application/pdf;base64,${resultadoDecrypt.pdfProtocol}`;
+                    setPdfContent(pdfSrc);
 
                     setNobilisOrdenInfo(await decryptObj(data));
                 } catch (error) {
@@ -67,10 +74,19 @@ export const CamposOrdenes = ({ derivacion, selectAll }) => {
             {nobilisOrdenInfo ? (
                 nobilisOrdenInfo.estado === "C" ? (
                     <li className={classes["acciones-ordenes"]}>
-                        <img
-                            src="https://cdn.discordapp.com/attachments/840217064978907170/1123256958196121620/icons8-descargar-64.png"
-                            alt="download--v1"
-                        />
+                        <a
+                            href={pdfContent}
+                            download={
+                                derivacion.nombre +
+                                derivacion.apellido +
+                                "-resultado-orden"
+                            }
+                        >
+                            <img
+                                src="https://cdn.discordapp.com/attachments/840217064978907170/1123256958196121620/icons8-descargar-64.png"
+                                alt="download--v1"
+                            />
+                        </a>
 
                         <Link to={`/PDF_PACIENTE/${derivacion.idOrden}`}>
                             <img

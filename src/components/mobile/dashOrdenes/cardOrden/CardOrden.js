@@ -13,6 +13,7 @@ import { encrypt } from "../../../../utils/secure-data/crypt";
 
 export const CardOrden = ({ orden }) => {
     const [nobilisOrdenInfo, setNobilisOrdenInfo] = useState(null);
+    const [pdfContent, setPdfContent] = useState(null);
 
     useEffect(() => {
         const token = JSON.parse(localStorage.getItem("UserLoggedInfo"));
@@ -27,7 +28,12 @@ export const CardOrden = ({ orden }) => {
                             idOrden: await encrypt(config.KEY, orden.idOrden),
                         }
                     );
-                    // dispatch(setPdfByOrdenSelected(await decryptObj(data)));
+
+                    const resultadoDecrypt = await decryptObj(data);
+                    setNobilisOrdenInfo(resultadoDecrypt);
+
+                    const pdfSrc = `data:application/pdf;base64,${resultadoDecrypt.pdfProtocol}`;
+                    setPdfContent(pdfSrc);
                     setNobilisOrdenInfo(await decryptObj(data));
                 } catch (error) {
                     console.log(
@@ -50,11 +56,19 @@ export const CardOrden = ({ orden }) => {
                     {nobilisOrdenInfo ? (
                         nobilisOrdenInfo.estado === "C" ? (
                             <div className={classes["card-imagenes"]}>
-                                <img
-                                    src="https://cdn.discordapp.com/attachments/840217064978907170/1123256958196121620/icons8-descargar-64.png"
-                                    alt="download--v1"
-                                />
-
+                                <a
+                                    href={pdfContent}
+                                    download={
+                                        orden.nombre +
+                                        orden.apellido +
+                                        "-resultado-orden"
+                                    }
+                                >
+                                    <img
+                                        src="https://cdn.discordapp.com/attachments/840217064978907170/1123256958196121620/icons8-descargar-64.png"
+                                        alt="download--v1"
+                                    />
+                                </a>
                                 <Link to={`/PDF_PACIENTE/${orden.idOrden}`}>
                                     <img
                                         src="https://cdn.discordapp.com/attachments/1095387607409635330/1124328592143294554/icons8-ver-48.png"

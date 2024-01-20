@@ -18,7 +18,7 @@ import { NavbarMobile } from "../mobile/navbar/NavbarMobile";
 export const PDFviewer = () => {
     const navigate = useNavigate();
     const [pdfContent, setPdfContent] = useState(null);
-    const { pdf } = useParams();
+    const { idOrden } = useParams();
 
     const [nobilisOrdenInfo, setNobilisOrdenInfo] = useState(null);
 
@@ -32,7 +32,7 @@ export const PDFviewer = () => {
                         config.IP + config.PUERTO + "/resultadoByOrden",
                         {
                             token: token,
-                            idOrden: await encrypt(config.KEY, pdf),
+                            idOrden: await encrypt(config.KEY, idOrden),
                         }
                     );
 
@@ -55,7 +55,7 @@ export const PDFviewer = () => {
 
     return (
         <div className="BOX_PDF ">
-            {window.innerWidth <= 1000 && <NavbarMobile />}
+            {/* {window.innerWidth <= 1000 && <NavbarMobile />} */}
             {window.innerWidth <= 1000 ? (
                 <NavLogo palabra={"Resultado"} />
             ) : (
@@ -77,15 +77,18 @@ export const PDFviewer = () => {
                         >
                             <p>
                                 Tu navegador no puede mostrar este archivo PDF.
-                                Puedes descargarlo
-                                <a href={pdfContent} download>
+                                Puedes descargarlo-----
+                                <a
+                                    href={pdfContent}
+                                    download={"numero de orden" + "#" + idOrden}
+                                >
                                     aquí
                                 </a>
                                 .
                             </p>
                         </object>
                     ) : (
-                        "ERROR"
+                        "ERROR DE NOBILIS, PEDIR SOPORTE"
                     )}
                     <div className="boton-pdf-volver">
                         <button onClick={() => navigate(-1)}>VOLVER</button>

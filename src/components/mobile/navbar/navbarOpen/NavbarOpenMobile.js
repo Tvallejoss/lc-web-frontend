@@ -75,7 +75,7 @@ export const NavbarOpenMobile = ({ closeNavbar }) => {
             </div>
             <div className={classes["navbar-option"]}>
                 {excelBase64 ? (
-                    <a href={excelBase64} download>
+                    <a href={excelBase64} download="modelo-excel-{#NOMBRE}">
                         Descargar Modelo
                     </a>
                 ) : (
@@ -84,7 +84,7 @@ export const NavbarOpenMobile = ({ closeNavbar }) => {
             </div>
             <div className={classes["navbar-option"]}>
                 {pdfBase64 ? (
-                    <a href={pdfBase64} download>
+                    <a href={pdfBase64} download="Instructivo-de-uso">
                         Ver Instructivo
                     </a>
                 ) : (
