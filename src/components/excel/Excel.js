@@ -128,7 +128,7 @@ export const Excel = () => {
                                 />
                             </div>
 
-                            <p>Excel seleccionado: {file.name}</p>
+                            <p>Excel seleccionado: {file?.name}</p>
 
                             <div className={classes["INPUT_FILE"]}>
                                 {/* <button>Buscar Archivo</button> */}

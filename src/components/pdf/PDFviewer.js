@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 // Styles
-import "./PDFviewer.css";
+import classes from "./PDFviewer.module.css";
 
 // Components
 import { Sidebar } from "../sidebar/Sidebar";
@@ -54,7 +54,7 @@ export const PDFviewer = () => {
     }, []);
 
     return (
-        <div className="BOX_PDF ">
+        <div className={classes["BOX_PDF"]}>
             {/* {window.innerWidth <= 1000 && <NavbarMobile />} */}
             {window.innerWidth <= 1000 ? (
                 <NavLogo palabra={"Resultado"} />
@@ -62,18 +62,18 @@ export const PDFviewer = () => {
                 <NavLogo />
             )}
 
-            <div className="pdf-container">
-                <div className="SIDEBAR_PDF">
+            <div className={classes["pdf-container"]}>
+                <div className={classes["SIDEBAR_PDF"]}>
                     <Sidebar />
                 </div>
-                <div className="PDF">
+                <div className={classes["PDF"]}>
                     {nobilisOrdenInfo?.pdfProtocol ? (
                         <object
                             data={pdfContent}
                             type="application/pdf"
                             width="400"
                             height="750"
-                            className="PDF_SELECT"
+                            className={classes["PDF_SELECT"]}
                         >
                             <p>
                                 Tu navegador no puede mostrar este archivo PDF.
@@ -90,7 +90,7 @@ export const PDFviewer = () => {
                     ) : (
                         "ERROR DE NOBILIS, PEDIR SOPORTE"
                     )}
-                    <div className="boton-pdf-volver">
+                    <div className={classes["boton-pdf-volver"]}>
                         <button onClick={() => navigate(-1)}>VOLVER</button>
                     </div>
                 </div>

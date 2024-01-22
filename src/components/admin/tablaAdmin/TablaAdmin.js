@@ -19,7 +19,7 @@ import { TablaAdminMobile } from "../../mobile/admin/TablaAdminMobile";
 import { OptionsPopover } from "../../mobile/admin/popUpAdminFiles/OptionsPopover";
 const ModalCargando = () => {
     return (
-        <tr
+        <div
             style={{
                 display: "flex",
                 justifyContent: "center",
@@ -28,8 +28,10 @@ const ModalCargando = () => {
                 width: "100%",
             }}
         >
-            <SyncLoader size={8} color={"#0b74d1"} loading={true} />
-        </tr>
+            <div>
+                <SyncLoader size={8} color={"#0b74d1"} loading={true} />
+            </div>
+        </div>
     );
 };
 
@@ -121,21 +123,21 @@ export const TablaAdmin = () => {
                         />
 
                         <Link to="/ADMIN/client" className={classes["A_Table"]}>
-                            <button> + Alta nuevo cliente </button>
+                            <p> + Alta nuevo cliente </p>
                         </Link>
                     </div>
                 </div>
             </div>
-            <table className={classes["BOX_TABLE"]}>
-                <tbody className={classes["TABLA_ADMIN"]}>
-                    <tr className={classes["Campos_ADMIN"]}>
-                        <th>Cuit Cliente</th>
-                        <th>Estado</th>
-                        <th>Nombre</th>
-                        <th>Contacto</th>
-                        <th>mail</th>
-                        <th>Acciones</th>
-                    </tr>
+            <div className={classes["TABLE"]}>
+                <div className={classes["TABLA_D"]}>
+                    <ol className={classes["Campos"]}>
+                        <li>Cuit Cliente</li>
+                        <li>Estado</li>
+                        <li>Nombre</li>
+                        <li>Contacto</li>
+                        <li>mail</li>
+                        <li>Acciones</li>
+                    </ol>
 
                     {loading ? (
                         <ModalCargando />
@@ -153,8 +155,8 @@ export const TablaAdmin = () => {
                     ) : (
                         <></>
                     )}
-                </tbody>
-            </table>
+                </div>
+            </div>
             <button className={classes["SALIR"]} onClick={handleLogout}>
                 Salir
             </button>

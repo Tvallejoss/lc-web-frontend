@@ -1,12 +1,18 @@
+
+// Hooks 
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import "./Campos.css";
 import config from "../../../../config";
 import { ModalEstado } from "./ModalEstado";
 import { useDispatch } from "react-redux";
 import { setClientData } from "../../../../state/clientSlice";
 import { encrypt } from "../../../../utils/secure-data/crypt";
+
+
+// Styles
+import classes from "./Campos.module.css";
+
 
 export const Campos = ({ cliente, setEstado, setLoading }) => {
     const dispatch = useDispatch();
@@ -43,9 +49,9 @@ export const Campos = ({ cliente, setEstado, setLoading }) => {
     };
 
     return (
-        <tr className="VALORES_ADMIN">
-            <td>{cliente.cuit}</td>
-            <td>
+        <ol className={classes['VALORES_ADMIN']}>
+            <li>{cliente.cuit}</li>
+            <li>
                 {cliente.estado === "0" ? (
                     <>
                         <img
@@ -63,11 +69,11 @@ export const Campos = ({ cliente, setEstado, setLoading }) => {
                         />
                     </>
                 )}
-            </td>
-            <td>{cliente.usernameDeUsuario}</td>
-            <td>{cliente.razonSocial}</td>
-            <td>{cliente.mail}</td>
-            <td>
+            </li>
+            <li>{cliente.usernameDeUsuario}</li>
+            <li>{cliente.razonSocial}</li>
+            <li>{cliente.mail}</li>
+            <li>
                 <img
                     src="https://cdn.discordapp.com/attachments/1095387607409635330/1130054412287606784/Captura_de_pantalla_2023-07-16_053228.png"
                     alt="download--v1"
@@ -79,13 +85,13 @@ export const Campos = ({ cliente, setEstado, setLoading }) => {
                         alt="download--v1"
                     />
                 </Link>
-            </td>
+            </li>
 
             <ModalEstado
                 isOpen={isConfirmationOpen}
                 onClose={handleCloseConfirmation}
                 onConfirm={handleConfirmEstado}
             />
-        </tr>
+        </ol>
     );
 };

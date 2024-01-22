@@ -1,0 +1,27 @@
+.VALORES_ADMIN {
+    display: flex;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    margin-top: 20px;
+    padding-bottom: 15px;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 1px solid hsl(0, 0%, 52%);
+    font-size: 0.7rem;
+    list-style: none;
+    font-family: "cordoba";
+  
+}
+
+.VALORES_ADMIN li {
+    width: 20%;
+    text-align: center;
+    color: #707070;
+}
+
+.VALORES_ADMIN img {
+    width: 30px;
+    cursor: pointer;
+    margin-right: 5px;
+}
