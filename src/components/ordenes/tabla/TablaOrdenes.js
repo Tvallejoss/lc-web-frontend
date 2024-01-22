@@ -1,10 +1,14 @@
 // Hooks
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
 // Config
 import config from "../../../config";
+
+// States
+import { setOrdenesDownload } from "../../../state/ordenes"; 
 
 // Utils
 import { decryptAll } from "../../../utils/secure-data/decrypt";
@@ -38,12 +42,18 @@ const ModalCargando = () => {
 };
 
 export const TablaOrdenes = ({ id }) => {
+
+    // State global
+    const ordenesActuales = useSelector((state) => state.ordenes);
+
+
+    // Local States
     const [campos, setCampos] = useState([]);
     const [allCampos, setAllCampos] = useState([]);
-
     const [loading, setLoading] = useState(true);
     const [selectAll, setSelectAll] = useState(false);
 
+    // Params
     const { idDerivacion } = useParams();
 
     // eslint-disable-next-line
@@ -92,6 +102,12 @@ export const TablaOrdenes = ({ id }) => {
     if (window.innerWidth <= 1000) {
         return <TablaOrdenesMobile ordenes={campos} />;
     }
+    
+  
+    const downloadAllPossibleOrders = () => {
+        console.log("Descargar estas ordenes:", ordenesActuales);
+
+    }
 
     return (
         <div className={classes["TABLA_DASH"]}>
@@ -100,6 +116,7 @@ export const TablaOrdenes = ({ id }) => {
                     <img
                         src="https://cdn.discordapp.com/attachments/840217064978907170/1123256958196121620/icons8-descargar-64.png"
                         alt="download--v1"
+                        onClick= {downloadAllPossibleOrders}
                     />
                     <div className={classes["FILTROS"]}>
                         {/* <p>Filtrar</p> */}
@@ -159,7 +176,7 @@ export const TablaOrdenes = ({ id }) => {
                         campos.map((field, i) => {
                             return (
                                 <CamposOrdenes
-                                    derivacion={field}
+                                    orden={field}
                                     setLoading={setLoading}
                                     key={i}
                                 />
