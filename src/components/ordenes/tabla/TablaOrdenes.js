@@ -158,10 +158,13 @@ export const TablaOrdenes = ({ id }) => {
                 })
             );
             // Realizar la solicitud al backend con los IDs de las órdenes para actualizar el flag
-            await axios.post("/actualizarFlagDescargaOrden", {
-                token: token,
-                idOrdenes: idsOrdenes,
-            });
+            await axios.post(
+                config.IP + config.PUERTO + "/actualizarFlagDescargaOrden",
+                {
+                    token: token,
+                    idOrdenes: idsOrdenes,
+                }
+            );
 
             // Crear un enlace de descarga
             const enlace = document.createElement("a");
