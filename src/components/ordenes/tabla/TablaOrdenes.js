@@ -234,7 +234,7 @@ export const TablaOrdenes = ({ id }) => {
                 <div className={classes["TABLA_D"]}>
                     <ol className={classes["Campos"]}>
                         <li className={classes["download-text"]}>
-                            <input type="checkbox" />
+                            <input type="checkbox" disabled={true} />
                         </li>
                         <li>Fecha</li>
                         <li>DNI</li>
