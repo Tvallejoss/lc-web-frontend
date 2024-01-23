@@ -134,12 +134,14 @@ export const Tabla = () => {
                         </button>
                     </div>
 
-                    {/* Input search general */}
+                    <div className={classes['search']}>
+
                     <SearchInput
                         setCampos={setCampos}
                         allCampos={allCampos}
                         selectOptions={["id", "nombre"]}
-                    />
+                        />
+                        </div>
                 </div>
             </div>
 

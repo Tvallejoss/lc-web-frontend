@@ -225,11 +225,15 @@ export const TablaOrdenes = ({ id }) => {
                         </button>
                     </div>
                     {/* Input search general */}
-                    <SearchInput
+                  
+
+                  <div className={classes['search']}>
+                  <SearchInput
                         setCampos={setCampos}
                         allCampos={allCampos}
                         selectOptions={["idOrden", "nombre", "apellido", "dni"]}
                     />
+                  </div>
                 </div>
             </div>
 
