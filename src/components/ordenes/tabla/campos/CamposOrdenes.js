@@ -112,11 +112,7 @@ export const CamposOrdenes = ({ orden, selectAll }) => {
                     type="checkbox"
                     checked={isChecked}
                     onClick={handleCheckboxChange}
-                    disabled={
-                        orden?.flag_Download === "0" && nobilisOrdenInfo?.estado
-                            ? false
-                            : true
-                    }
+                    disabled={nobilisOrdenInfo?.estado ? false : true}
                 />
             </li>
             <li>{orden.fecha} 18/08/2023</li>
