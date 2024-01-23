@@ -81,9 +81,6 @@ export const CamposOrdenes = ({ orden, selectAll }) => {
             downloadFile("FlagUpdate");
         } catch (error) {
             console.log("Error Axios al cambiar el Flag ", error);
-
-            // Descargar igual para no perder funcionalidad (indicando en el pdf-name)
-            downloadFile("Error-flag");
             return error;
         }
     };
