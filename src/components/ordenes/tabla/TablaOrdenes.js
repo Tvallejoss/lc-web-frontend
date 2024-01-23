@@ -2,13 +2,14 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import JSZip from "jszip";
 import axios from "axios";
 
 // Config
 import config from "../../../config";
 
 // States
-import { setOrdenesDownload } from "../../../state/ordenes"; 
+import { setOrdenesDownload, resetOrdenes } from "../../../state/ordenes";
 
 // Utils
 import { decryptAll } from "../../../utils/secure-data/decrypt";
@@ -42,10 +43,11 @@ const ModalCargando = () => {
 };
 
 export const TablaOrdenes = ({ id }) => {
-
+    // Token user log
+    const token = JSON.parse(localStorage.getItem("UserLoggedInfo"));
     // State global
     const ordenesActuales = useSelector((state) => state.ordenes);
-
+    const dispatch = useDispatch();
 
     // Local States
     const [campos, setCampos] = useState([]);
@@ -62,8 +64,6 @@ export const TablaOrdenes = ({ id }) => {
     };
 
     useEffect(() => {
-        const token = JSON.parse(localStorage.getItem("UserLoggedInfo"));
-
         if (token) {
             const getOrdenes = async () => {
                 try {
@@ -102,12 +102,85 @@ export const TablaOrdenes = ({ id }) => {
     if (window.innerWidth <= 1000) {
         return <TablaOrdenesMobile ordenes={campos} />;
     }
-    
-  
-    const downloadAllPossibleOrders = () => {
-        console.log("Descargar estas ordenes:", ordenesActuales);
 
-    }
+    // Descarga todas las ordenes posibles que marcaron en el Check
+    const downloadAllPossibleOrders = async () => {
+        if (ordenesActuales.length <= 0) {
+            alert("No seleccionaste ninguna orden para descargar");
+            return;
+        }
+
+        // Crear una instancia de JSZip
+        const zip = new JSZip();
+
+        // Agregar el contenido PDF al ZIP
+        const agregarOrdenAlZIP = (orden) => {
+            return new Promise((resolve) => {
+                // Crear un nombre único para el archivo PDF
+                const nombreArchivo = `#${
+                    orden.idOrden + "-" + orden.name
+                }.pdf`;
+
+                // Convertir la cadena base64 a un blob
+                const binaryPdf = atob(orden.pdf);
+                const pdfBlob = new Blob(
+                    [
+                        new Uint8Array(binaryPdf.length).map((_, i) =>
+                            binaryPdf.charCodeAt(i)
+                        ),
+                    ],
+                    { type: "application/pdf" }
+                );
+
+                // Agregar el blob al ZIP
+                zip.file(nombreArchivo, pdfBlob, { binary: true });
+
+                resolve();
+            });
+        };
+
+        // Descargar cada orden y agregarla al ZIP
+        const descargas = ordenesActuales.map((orden) =>
+            agregarOrdenAlZIP(orden)
+        );
+
+        try {
+            // Esperar a que todas las descargas estén completas
+            await Promise.all(descargas);
+
+            // Generar el ZIP
+            const blob = await zip.generateAsync({ type: "blob" });
+
+            // Encryptar los ids
+            const idsOrdenes = await Promise.all(
+                ordenesActuales.map(async (orden) => {
+                    return await encrypt(config.KEY, orden.idOrden);
+                })
+            );
+            // Realizar la solicitud al backend con los IDs de las órdenes para actualizar el flag
+            await axios.post("/actualizarFlagDescargaOrden", {
+                token: token,
+                idOrdenes: idsOrdenes,
+            });
+
+            // Crear un enlace de descarga
+            const enlace = document.createElement("a");
+            enlace.href = URL.createObjectURL(blob);
+            enlace.download = "ordenes.zip";
+            enlace.click();
+
+            // Vaciar el stado global aca:
+            dispatch(resetOrdenes());
+        } catch (error) {
+            // Vaciar el stado global aca:
+            dispatch(resetOrdenes());
+            alert("Error durante la descarga");
+            console.error(
+                "Error durante la descarga o la solicitud al backend:",
+                error
+            );
+        }
+    };
 
     return (
         <div className={classes["TABLA_DASH"]}>
@@ -116,7 +189,7 @@ export const TablaOrdenes = ({ id }) => {
                     <img
                         src="https://cdn.discordapp.com/attachments/840217064978907170/1123256958196121620/icons8-descargar-64.png"
                         alt="download--v1"
-                        onClick= {downloadAllPossibleOrders}
+                        onClick={downloadAllPossibleOrders}
                     />
                     <div className={classes["FILTROS"]}>
                         {/* <p>Filtrar</p> */}

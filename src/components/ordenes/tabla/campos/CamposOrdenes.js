@@ -16,9 +16,9 @@ import { encrypt } from "../../../../utils/secure-data/crypt";
 import classes from "./CamposOrdenes.module.css";
 
 export const CamposOrdenes = ({ orden, selectAll }) => {
-  // Obtén el estado actual de las órdenes desde el store
-  const [isChecked, setIsChecked] = useState(false);
-  const ordenesActuales = useSelector((state) => state.ordenes);
+    // Obtén el estado actual de las órdenes desde el store
+    const [isChecked, setIsChecked] = useState(false);
+    const ordenesActuales = useSelector((state) => state.ordenes);
 
     // User log
     const token = JSON.parse(localStorage.getItem("UserLoggedInfo"));
@@ -29,8 +29,6 @@ export const CamposOrdenes = ({ orden, selectAll }) => {
 
     // Hooks
     const dispatch = useDispatch();
-
-    console.log("ORDEN", orden);
     useEffect(() => {
         if (token) {
             const getEstadoByOrden = async () => {
@@ -62,11 +60,8 @@ export const CamposOrdenes = ({ orden, selectAll }) => {
         }
     }, []);
 
+    // Descargar y actualizar estado de un archivo solo
     const downloadFileAndUpdateStatus = async () => {
-        // Ruta: /actualizarFlagDescargaOrden
-
-        // dispatch(setOrdenesDownload(nuevasOrdenes));
-
         const downloadFile = (msg) => {
             const link = document.createElement("a");
             link.href = pdfContent;
@@ -93,13 +88,12 @@ export const CamposOrdenes = ({ orden, selectAll }) => {
         }
     };
 
-  
-    // console.log("ORDENES ACTUALES", ordenesActuales);
     useEffect(() => {
-        //actualizar el estado global de las órdenes
+        //actualizar el estado global de las órdenes cuando cambia el estado de un checkbox
         dispatch(
             setOrdenesDownload({
                 id: orden.idOrden,
+                name: orden.nombre + orden.apellido,
                 pdfContent: nobilisOrdenInfo?.pdfProtocol,
                 isChecked,
             })
