@@ -62,7 +62,7 @@ export const Tabla = () => {
         const fechaDesdeObj = new Date(fechaDesde);
         const fechaHastaObj = new Date(fechaHasta);
 
-        const resultadosFiltrados = campos.filter((item) => {
+        const resultadosFiltrados = allCampos.filter((item) => {
             const fechaItem = new Date(item.fechaEmision);
             return fechaItem >= fechaDesdeObj && fechaItem <= fechaHastaObj;
         });
@@ -73,6 +73,10 @@ export const Tabla = () => {
         setCampos(allCampos);
         setFechaDesde("");
         setFechaHasta("");
+
+        //marcar opcion principal
+        document.getElementById("fechaDesde").value = "";
+        document.getElementById("fechaHasta").value = "";
     };
 
     useEffect(() => {
@@ -113,12 +117,20 @@ export const Tabla = () => {
                         <p>Filtrar</p>
                         <div>
                             <label>Fecha desde</label>
-                            <input type="date" onChange={fechaDesdeValue} />
+                            <input
+                                id="fechaDesde"
+                                type="date"
+                                onChange={fechaDesdeValue}
+                            />
                         </div>
 
                         <div>
                             <label>Fecha hasta</label>
-                            <input type="date" onChange={fechaHastaValue} />
+                            <input
+                                id="fechaHasta"
+                                type="date"
+                                onChange={fechaHastaValue}
+                            />
                         </div>
                     </div>
                 </div>

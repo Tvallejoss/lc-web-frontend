@@ -24,7 +24,6 @@ export const CamposOrdenes = ({ orden, selectAll }) => {
     const [isChecked, setIsChecked] = useState(false);
     const ordenesActuales = useSelector((state) => state.ordenes);
 
-
     // Descargar y actualizar estado de un archivo solo
     const downloadFileAndUpdateStatus = async () => {
         const downloadFile = (msg) => {
@@ -69,8 +68,9 @@ export const CamposOrdenes = ({ orden, selectAll }) => {
 
     return (
         <ol className={classes["VALORES"]}>
-            <li className={classes["CHECK"]}>
+            <li>
                 <input
+                    className={classes["CHECK"]}
                     type="checkbox"
                     defaultChecked={isChecked}
                     onClick={handleCheckboxChange}

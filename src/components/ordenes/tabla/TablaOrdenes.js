@@ -9,7 +9,7 @@ import axios from "axios";
 import config from "../../../config";
 
 // States
-import { setOrdenesDownload, resetOrdenes } from "../../../state/ordenes";
+import { downloadOrders, resetOrdenes } from "../../../state/ordenes";
 
 // Utils
 import { decryptAll, decryptObj } from "../../../utils/secure-data/decrypt";
@@ -49,14 +49,15 @@ export const TablaOrdenes = ({ id }) => {
     const ordenesActuales = useSelector((state) => state.ordenes);
     const dispatch = useDispatch();
 
-
-    console.log("ORDENES", ordenesActuales);
-
     // Local States
     const [campos, setCampos] = useState([]);
     const [allCampos, setAllCampos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [selectAll, setSelectAll] = useState(false);
+
+    // Filtro Descargas y Estados
+    const [filtroDescargas, setFiltroDescarga] = useState("");
+    const [filtroEstado, setFiltroEstado] = useState("");
 
     // Params
     const { idDerivacion } = useParams();
@@ -156,83 +157,53 @@ export const TablaOrdenes = ({ id }) => {
     }
 
     // Descarga todas las ordenes posibles que marcaron en el Check
-    const downloadAllPossibleOrders = async () => {
+    const downloadAllPossibleOrders = () => {
         if (ordenesActuales.length <= 0) {
             alert("No seleccionaste ninguna orden para descargar");
             return;
         }
 
-        // Crear una instancia de JSZip
-        const zip = new JSZip();
+        // Despacha la acción asincrónica con las órdenes marcadas
+        dispatch(downloadOrders(ordenesActuales));
+    };
 
-        // Agregar el contenido PDF al ZIP
-        const agregarOrdenAlZIP = (orden) => {
-            return new Promise((resolve) => {
-                // Crear un nombre único para el archivo PDF
-                const nombreArchivo = `#${
-                    orden.idOrden + "-" + orden.name
-                }.pdf`;
-
-                // Convertir la cadena base64 a un blob
-                const binaryPdf = atob(orden.pdf.split(",")[1]);
-                const pdfBlob = new Blob(
-                    [
-                        new Uint8Array(binaryPdf.length).map((_, i) =>
-                            binaryPdf.charCodeAt(i)
-                        ),
-                    ],
-                    { type: "application/pdf" }
-                );
-
-                // Agregar el blob al ZIP
-                zip.file(nombreArchivo, pdfBlob, { binary: true });
-
-                resolve();
-            });
-        };
-
-        // Descargar cada orden y agregarla al ZIP
-        const descargas = ordenesActuales.map((orden) =>
-            agregarOrdenAlZIP(orden)
-        );
-
-        try {
-            // Esperar a que todas las descargas estén completas
-            await Promise.all(descargas);
-
-            // Generar el ZIP
-            const blob = await zip.generateAsync({ type: "blob" });
-
-            // Encryptar los ids
-            const idsOrdenes = await Promise.all(
-                ordenesActuales.map(async (orden) => {
-                    return await encrypt(config.KEY, orden.idOrden);
-                })
-            );
-            // Realizar la solicitud al backend con los IDs de las órdenes para actualizar el flag
-            await axios.post(
-                config.IP + config.PUERTO + "/actualizarFlagDescargaOrden",
-                {
-                    token: token,
-                    idOrdenes: idsOrdenes,
-                }
-            );
-
-            // Crear un enlace de descarga
-            const enlace = document.createElement("a");
-            enlace.href = URL.createObjectURL(blob);
-            enlace.download = "ordenes.zip";
-            enlace.click();
-
-            // Vaciar el stado global aca:
-            dispatch(resetOrdenes());
-        } catch (error) {
-            alert("Error durante la descarga");
-            console.error(
-                "Error durante la descarga o la solicitud al backend:",
-                error
-            );
+    const filtros = () => {
+        // Si ambos filtros están vacíos, mostrar mensaje o manejar según tus necesidades
+        if (filtroDescargas === "" && filtroEstado === "") {
+            return alert("Filtros Incompletos");
         }
+
+        // Filtrar según el estado de descarga y el estado de la orden
+        const resultadosFiltrados = allCampos.filter((item) => {
+            const cumpleFiltroDescargas =
+                filtroDescargas === "" ||
+                filtroDescargas === item.flag_Download;
+            const cumpleFiltroEstado =
+                filtroEstado === "" || filtroEstado === item.estado;
+
+            return cumpleFiltroDescargas && cumpleFiltroEstado;
+        });
+
+        // Actualizar el estado de campos con los resultados filtrados
+        setCampos(resultadosFiltrados);
+    };
+
+    const resetearFiltro = () => {
+        setCampos(allCampos);
+        setFiltroDescarga("");
+        setFiltroEstado("");
+
+        //marcar opcion principal
+        document.getElementById("filtroDescargas").selectedIndex = 0;
+        document.getElementById("filtroEstados").selectedIndex = 0;
+    };
+
+    const handleDescargasChange = (e) => {
+        setFiltroDescarga(e.target.value);
+    };
+
+    const handleEstadoChange = (e) => {
+        setFiltroEstado(e.target.value);
     };
 
     return (
@@ -248,7 +219,11 @@ export const TablaOrdenes = ({ id }) => {
                         {/* <p>Filtrar</p> */}
                         <div>
                             <label>Filtrar por Archivos:</label>
-                            <select name="filtroDescargas">
+                            <select
+                                id="filtroDescargas"
+                                name="filtroDescargas"
+                                onChange={handleDescargasChange}
+                            >
                                 <option value="">Seleccionar</option>
                                 <option value="1">Descargados</option>
                                 <option value="0">No Descargados</option>
@@ -257,7 +232,11 @@ export const TablaOrdenes = ({ id }) => {
 
                         <div>
                             <label>Filtrar por Estado:</label>
-                            <select name="filtroEstados">
+                            <select
+                                id="filtroEstados"
+                                name="filtroEstados"
+                                onChange={handleEstadoChange}
+                            >
                                 <option value="">Seleccionar</option>
                                 <option value="P">En Proceso</option>
                                 <option value="C">Finalizados</option>
@@ -267,10 +246,16 @@ export const TablaOrdenes = ({ id }) => {
                 </div>
                 <div className={classes["busqueda"]}>
                     <div className={classes["BOTONES"]}>
-                        <button className={classes["APLICAR"]}>
+                        <button
+                            className={classes["APLICAR"]}
+                            onClick={filtros}
+                        >
                             Aplicar Filtros
                         </button>
-                        <button className={classes["BORRAR"]}>
+                        <button
+                            className={classes["BORRAR"]}
+                            onClick={resetearFiltro}
+                        >
                             Borrar Filtros
                         </button>
                     </div>
@@ -294,9 +279,7 @@ export const TablaOrdenes = ({ id }) => {
             <div className={classes["TABLE"]}>
                 <div className={classes["TABLA_D"]}>
                     <ol className={classes["Campos"]}>
-                        <li className={classes["download-text"]}>
-                            <input type="checkbox" disabled={true} />
-                        </li>
+                        <li>Descargar</li>
                         <li>Fecha</li>
                         <li>DNI</li>
                         <li>paciente</li>
@@ -317,7 +300,7 @@ export const TablaOrdenes = ({ id }) => {
                             );
                         })
                     ) : (
-                        <>Error al traer las ordenes </>
+                        <>No se encuentran ordenes </>
                     )}
                 </div>
             </div>
