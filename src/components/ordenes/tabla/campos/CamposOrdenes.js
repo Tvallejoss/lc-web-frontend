@@ -5,7 +5,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 
 // States
-import { setOrdenesDownload } from "../../../../state/ordenes";
+import { setOrdenesDownloadByChecked } from "../../../../state/ordenes";
 
 // Config
 import config from "../../../../config";
@@ -16,55 +16,20 @@ import { encrypt } from "../../../../utils/secure-data/crypt";
 import classes from "./CamposOrdenes.module.css";
 
 export const CamposOrdenes = ({ orden, selectAll }) => {
+    const dispatch = useDispatch();
+
+    // User log
+    const token = JSON.parse(localStorage.getItem("UserLoggedInfo"));
     // Obtén el estado actual de las órdenes desde el store
     const [isChecked, setIsChecked] = useState(false);
     const ordenesActuales = useSelector((state) => state.ordenes);
 
-    // User log
-    const token = JSON.parse(localStorage.getItem("UserLoggedInfo"));
-
-    // Local States
-    const [nobilisOrdenInfo, setNobilisOrdenInfo] = useState(null);
-    const [pdfContent, setPdfContent] = useState(null);
-
-    // Hooks
-    const dispatch = useDispatch();
-    useEffect(() => {
-        if (token) {
-            const getEstadoByOrden = async () => {
-                try {
-                    const { data } = await axios.post(
-                        config.IP + config.PUERTO + "/resultadoByOrden",
-                        {
-                            token: token,
-                            idOrden: await encrypt(config.KEY, orden.idOrden),
-                        }
-                    );
-
-                    const resultadoDecrypt = await decryptObj(data);
-                    setNobilisOrdenInfo(resultadoDecrypt);
-
-                    const pdfSrc = `data:application/pdf;base64,${resultadoDecrypt.pdfProtocol}`;
-                    setPdfContent(pdfSrc);
-
-                    setNobilisOrdenInfo(await decryptObj(data));
-                } catch (error) {
-                    console.log(
-                        "Error Axios al traer el estado de la orden en Desktop",
-                        error
-                    );
-                    return error;
-                }
-            };
-            getEstadoByOrden();
-        }
-    }, []);
 
     // Descargar y actualizar estado de un archivo solo
     const downloadFileAndUpdateStatus = async () => {
         const downloadFile = (msg) => {
             const link = document.createElement("a");
-            link.href = pdfContent;
+            link.href = orden.pdfSrc;
             link.download =
                 orden.nombre + orden.apellido + "-resultado-orden" + msg;
             link.click();
@@ -88,10 +53,10 @@ export const CamposOrdenes = ({ orden, selectAll }) => {
     useEffect(() => {
         //actualizar el estado global de las órdenes cuando cambia el estado de un checkbox
         dispatch(
-            setOrdenesDownload({
+            setOrdenesDownloadByChecked({
                 id: orden.idOrden,
                 name: orden.nombre + orden.apellido,
-                pdfContent: nobilisOrdenInfo?.pdfProtocol,
+                pdf: orden?.pdfSrc,
                 isChecked,
             })
         );
@@ -107,21 +72,19 @@ export const CamposOrdenes = ({ orden, selectAll }) => {
             <li className={classes["CHECK"]}>
                 <input
                     type="checkbox"
-                    checked={isChecked}
+                    defaultChecked={isChecked}
                     onClick={handleCheckboxChange}
-                    disabled={nobilisOrdenInfo?.estado ? false : true}
+                    disabled={orden?.estado ? false : true}
                 />
             </li>
             <li>{orden.fecha} 18/08/2023</li>
             <li>{orden.dni}</li>
             <li>{orden.nombre + " " + orden.apellido}</li>
 
-            {nobilisOrdenInfo ? (
-                nobilisOrdenInfo.estado ? (
+            {orden ? (
+                orden.estado ? (
                     <li className={classes["VERDE"]}>
-                        {nobilisOrdenInfo.estado === "C"
-                            ? "Finalizado"
-                            : "En proceso"}
+                        {orden.estado === "C" ? "Finalizado" : "En proceso"}
                     </li>
                 ) : (
                     <li className={classes["ROJO"]}>Nobilis Error</li>
@@ -130,8 +93,8 @@ export const CamposOrdenes = ({ orden, selectAll }) => {
                 <li className={classes["ROJO"]}>Nobilis Error</li>
             )}
 
-            {nobilisOrdenInfo ? (
-                nobilisOrdenInfo.estado === "C" ? (
+            {orden ? (
+                orden.estado === "C" ? (
                     <li className={classes["acciones-ordenes"]}>
                         <img
                             src="https://cdn.discordapp.com/attachments/840217064978907170/1123256958196121620/icons8-descargar-64.png"

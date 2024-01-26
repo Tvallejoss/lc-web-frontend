@@ -12,7 +12,7 @@ import config from "../../../config";
 import { setOrdenesDownload, resetOrdenes } from "../../../state/ordenes";
 
 // Utils
-import { decryptAll } from "../../../utils/secure-data/decrypt";
+import { decryptAll, decryptObj } from "../../../utils/secure-data/decrypt";
 import { encrypt } from "../../../utils/secure-data/crypt";
 import { SyncLoader } from "react-spinners";
 
@@ -49,6 +49,9 @@ export const TablaOrdenes = ({ id }) => {
     const ordenesActuales = useSelector((state) => state.ordenes);
     const dispatch = useDispatch();
 
+
+    console.log("ORDENES", ordenesActuales);
+
     // Local States
     const [campos, setCampos] = useState([]);
     const [allCampos, setAllCampos] = useState([]);
@@ -82,8 +85,57 @@ export const TablaOrdenes = ({ id }) => {
                             },
                         }
                     );
-                    setCampos(await decryptAll(data));
-                    setAllCampos(await decryptAll(data));
+
+                    const dataDecrypt = await decryptAll(data);
+
+                    dataDecrypt.map((order) => {
+                        const getEstadoByOrden = async () => {
+                            try {
+                                const { data } = await axios.post(
+                                    config.IP +
+                                        config.PUERTO +
+                                        "/resultadoByOrden",
+                                    {
+                                        token: token,
+                                        idOrden: await encrypt(
+                                            config.KEY,
+                                            order.idOrden
+                                        ),
+                                    }
+                                );
+
+                                const resultadoDecrypt = await decryptObj(data);
+                                const pdfSrc = `data:application/pdf;base64,${resultadoDecrypt.pdfProtocol}`;
+
+                                setCampos((prevCampos) => [
+                                    ...prevCampos,
+                                    {
+                                        ...order,
+                                        pdfSrc: pdfSrc,
+                                        estado: resultadoDecrypt.estado,
+                                    },
+                                ]);
+
+                                setAllCampos((prevCampos) => [
+                                    ...prevCampos,
+                                    {
+                                        ...order,
+                                        pdfSrc: pdfSrc,
+                                        estado: resultadoDecrypt.estado,
+                                    },
+                                ]);
+                            } catch (error) {
+                                console.log(
+                                    "Error Axios al traer el estado de la orden ID#",
+                                    order.idOrden,
+                                    error
+                                );
+                                return error;
+                            }
+                        };
+
+                        getEstadoByOrden();
+                    });
                 } catch (error) {
                     console.log(
                         "Error Axios al traer las ordenes de una derivacion",
@@ -122,7 +174,7 @@ export const TablaOrdenes = ({ id }) => {
                 }.pdf`;
 
                 // Convertir la cadena base64 a un blob
-                const binaryPdf = atob(orden.pdf);
+                const binaryPdf = atob(orden.pdf.split(",")[1]);
                 const pdfBlob = new Blob(
                     [
                         new Uint8Array(binaryPdf.length).map((_, i) =>
@@ -175,8 +227,6 @@ export const TablaOrdenes = ({ id }) => {
             // Vaciar el stado global aca:
             dispatch(resetOrdenes());
         } catch (error) {
-            // Vaciar el stado global aca:
-            dispatch(resetOrdenes());
             alert("Error durante la descarga");
             console.error(
                 "Error durante la descarga o la solicitud al backend:",
@@ -225,15 +275,19 @@ export const TablaOrdenes = ({ id }) => {
                         </button>
                     </div>
                     {/* Input search general */}
-                  
 
-                  <div className={classes['search']}>
-                  <SearchInput
-                        setCampos={setCampos}
-                        allCampos={allCampos}
-                        selectOptions={["idOrden", "nombre", "apellido", "dni"]}
-                    />
-                  </div>
+                    <div className={classes["search"]}>
+                        <SearchInput
+                            setCampos={setCampos}
+                            allCampos={allCampos}
+                            selectOptions={[
+                                "idOrden",
+                                "nombre",
+                                "apellido",
+                                "dni",
+                            ]}
+                        />
+                    </div>
                 </div>
             </div>
 

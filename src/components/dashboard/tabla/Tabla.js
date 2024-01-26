@@ -9,6 +9,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import config from "../../../config";
 import { decryptAll } from "../../../utils/secure-data/decrypt";
+import { useDispatch } from "react-redux";
+import { resetOrdenes } from "../../../state/ordenes";
 
 //Styles
 import classes from "./Tabla.module.css";
@@ -32,6 +34,8 @@ const ModalCargando = () => {
 };
 
 export const Tabla = () => {
+    const dispatch = useDispatch();
+
     // Campos State
     const [campos, setCampos] = useState([]);
     const [allCampos, setAllCampos] = useState([]);
@@ -84,6 +88,7 @@ export const Tabla = () => {
                         }
                     );
 
+                    dispatch(resetOrdenes());
                     setCampos(await decryptAll(data));
                     setAllCampos(await decryptAll(data));
                 } catch (error) {
@@ -98,8 +103,7 @@ export const Tabla = () => {
     }, [window.innerWidth]);
 
     //VIEW MOBILE
-    if (window.innerWidth <= 1000)
-        return <TablaMobile allCampos={allCampos} />;
+    if (window.innerWidth <= 1000) return <TablaMobile allCampos={allCampos} />;
 
     return (
         <div className={classes["TABLA_DASH"]}>
@@ -134,14 +138,13 @@ export const Tabla = () => {
                         </button>
                     </div>
 
-                    <div className={classes['search']}>
-
-                    <SearchInput
-                        setCampos={setCampos}
-                        allCampos={allCampos}
-                        selectOptions={["id", "nombre"]}
+                    <div className={classes["search"]}>
+                        <SearchInput
+                            setCampos={setCampos}
+                            allCampos={allCampos}
+                            selectOptions={["id", "nombre"]}
                         />
-                        </div>
+                    </div>
                 </div>
             </div>
 
