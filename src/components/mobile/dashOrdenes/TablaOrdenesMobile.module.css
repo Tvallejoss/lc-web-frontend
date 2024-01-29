@@ -18,3 +18,21 @@
     align-items: center;
 }
 
+.boton-volver {
+    text-decoration: none;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.boton-volver button {
+    width: 20%;
+    height: 3rem;
+    font-family: "CORDOBA";
+    background-color: #0b74d1;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}

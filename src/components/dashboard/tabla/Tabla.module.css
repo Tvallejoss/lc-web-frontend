@@ -1,5 +1,5 @@
 .TABLA_DASH {
-    width: 80%;
+    width: 75%;
     height: 100dvh;
     display: flex;
     flex-direction: column;
@@ -7,9 +7,10 @@
 
 .TABLA_NAV {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
     width: 100%;
-    justify-content: space-around;
+    height: 5rem;
 }
 
 .filtros {
@@ -27,31 +28,28 @@
 }
 
 .filtros label {
-    font-size: 10px;
+    font-size: 0.7rem;
     color: #006ab9;
-    margin-bottom: 5px;
     width: 100%;
 }
 
 .filtros input[type="date"] {
     width: 100%;
     border: none;
-    /* color: #006ab9; */
-    /* color: transparent; */
     border-bottom: 1px solid #006ab9;
     appearance: none;
     cursor: pointer;
-    /* text-align: center; */
 }
 
 .FILTROS {
     display: flex;
     width: 100%;
     justify-content: space-evenly;
+    align-items: center;
 }
 
 .filtros p {
-    font-size: 10px;
+    font-size: 0.7rem;
     width: 10%;
     color: #006ab9;
     /* margin-right: 30px; */
@@ -60,6 +58,10 @@
 .FILTROS div {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+    height: 100%;
 }
 
 .busqueda {
@@ -75,13 +77,19 @@
     justify-content: space-between;
 }
 
-.BOTONES_SIDEBAR_RESPONSIVE {
-    display: none;
+.search {
+    width: 55%;
+}
+
+.search span {
+    font-size: 0.6rem;
+    width: 90%;
+    text-align: center;
 }
 
 .busqueda button {
     border-radius: 7px;
-    height: 35px;
+    height: 2.5rem;
     width: 45%;
     border: none;
     cursor: pointer;

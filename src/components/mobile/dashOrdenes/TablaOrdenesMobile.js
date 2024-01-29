@@ -33,7 +33,7 @@ export const TablaOrdenesMobile = ({ ordenes }) => {
                 ) : (
                     <>No hay Ordenes</>
                 )}
-                <div className="boton-pdf-volver">
+                <div className={classes["boton-volver"]}>
                     <button onClick={() => navigate(-1)}>VOLVER</button>
                 </div>
             </div>

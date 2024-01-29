@@ -3,9 +3,9 @@ import logger from "redux-logger";
 
 //State
 import userReducer from "../state/user";
-// import clientReducer from "../state/client";
-import clientReducer from "../state/clientSlice"; // Importa el "slice" creado anteriormente
+import clientReducer from "../state/clientSlice"; 
 import pdfReducer from "../state/pdfByOrdenSelected";
+import ordenesReducer from "../state/ordenes";
 
 const store = configureStore({
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
@@ -16,6 +16,8 @@ const store = configureStore({
         clientSelected: clientReducer,
         //PDF BY ORDEN
         pdfByOrdenSelected: pdfReducer,
+        //Ordenes
+        ordenes: ordenesReducer,
     },
 });
 

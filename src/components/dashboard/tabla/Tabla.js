@@ -9,6 +9,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import config from "../../../config";
 import { decryptAll } from "../../../utils/secure-data/decrypt";
+import { useDispatch } from "react-redux";
+import { resetOrdenes } from "../../../state/ordenes";
 
 //Styles
 import classes from "./Tabla.module.css";
@@ -32,6 +34,8 @@ const ModalCargando = () => {
 };
 
 export const Tabla = () => {
+    const dispatch = useDispatch();
+
     // Campos State
     const [campos, setCampos] = useState([]);
     const [allCampos, setAllCampos] = useState([]);
@@ -58,7 +62,7 @@ export const Tabla = () => {
         const fechaDesdeObj = new Date(fechaDesde);
         const fechaHastaObj = new Date(fechaHasta);
 
-        const resultadosFiltrados = campos.filter((item) => {
+        const resultadosFiltrados = allCampos.filter((item) => {
             const fechaItem = new Date(item.fechaEmision);
             return fechaItem >= fechaDesdeObj && fechaItem <= fechaHastaObj;
         });
@@ -69,6 +73,10 @@ export const Tabla = () => {
         setCampos(allCampos);
         setFechaDesde("");
         setFechaHasta("");
+
+        //marcar opcion principal
+        document.getElementById("fechaDesde").value = "";
+        document.getElementById("fechaHasta").value = "";
     };
 
     useEffect(() => {
@@ -84,6 +92,7 @@ export const Tabla = () => {
                         }
                     );
 
+                    dispatch(resetOrdenes());
                     setCampos(await decryptAll(data));
                     setAllCampos(await decryptAll(data));
                 } catch (error) {
@@ -98,8 +107,7 @@ export const Tabla = () => {
     }, [window.innerWidth]);
 
     //VIEW MOBILE
-    if (window.innerWidth <= 1000)
-        return <TablaMobile allCampos={allCampos} />;
+    if (window.innerWidth <= 1000) return <TablaMobile allCampos={allCampos} />;
 
     return (
         <div className={classes["TABLA_DASH"]}>
@@ -109,12 +117,20 @@ export const Tabla = () => {
                         <p>Filtrar</p>
                         <div>
                             <label>Fecha desde</label>
-                            <input type="date" onChange={fechaDesdeValue} />
+                            <input
+                                id="fechaDesde"
+                                type="date"
+                                onChange={fechaDesdeValue}
+                            />
                         </div>
 
                         <div>
                             <label>Fecha hasta</label>
-                            <input type="date" onChange={fechaHastaValue} />
+                            <input
+                                id="fechaHasta"
+                                type="date"
+                                onChange={fechaHastaValue}
+                            />
                         </div>
                     </div>
                 </div>
@@ -134,12 +150,13 @@ export const Tabla = () => {
                         </button>
                     </div>
 
-                    {/* Input search general */}
-                    <SearchInput
-                        setCampos={setCampos}
-                        allCampos={allCampos}
-                        selectOptions={["id", "nombre"]}
-                    />
+                    <div className={classes["search"]}>
+                        <SearchInput
+                            setCampos={setCampos}
+                            allCampos={allCampos}
+                            selectOptions={["id", "nombre"]}
+                        />
+                    </div>
                 </div>
             </div>
 

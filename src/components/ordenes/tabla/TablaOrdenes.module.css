@@ -1,5 +1,5 @@
 .TABLA_DASH {
-    width: 80%;
+    width: 75%;
     height: 100dvh;
     display: flex;
     flex-direction: column;
@@ -7,9 +7,10 @@
 
 .TABLA_NAV {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
     width: 100%;
-    justify-content: space-around;
+    height: 5rem;
 }
 
 .filtros {
@@ -29,7 +30,6 @@
 .filtros label {
     font-size: 10px;
     color: #006ab9;
-    margin-bottom: 5px;
     width: 100%;
 }
 
@@ -58,7 +58,7 @@
     padding: 0;
 }
 .filtros label {
-    font-size: 10px;
+    font-size: 0.6rem;
     text-align: center;
     width: 100%;
     color: #006ab9;
@@ -88,16 +88,25 @@
     justify-content: space-between;
 }
 
-.BOTONES_SIDEBAR_RESPONSIVE {
-    display: none;
-}
 
 .busqueda button {
     border-radius: 7px;
-    height: 35px;
+    height: 2.5rem;
     width: 45%;
     border: none;
     cursor: pointer;
+}
+
+.search {
+    width: 55%;
+
+}
+
+.search span {
+    font-size: 0.6rem;
+    width: 90%;
+    text-align: center;
+
 }
 
 .APLICAR {
