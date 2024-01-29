@@ -15,6 +15,7 @@ import { downloadOrders, resetOrdenes } from "../../../state/ordenes";
 import { decryptAll, decryptObj } from "../../../utils/secure-data/decrypt";
 import { encrypt } from "../../../utils/secure-data/crypt";
 import { SyncLoader } from "react-spinners";
+import { downloadAllOrders } from "../../../utils/files/downloadFiles/downloadPdf";
 
 // Components
 import { CamposOrdenes } from "./campos/CamposOrdenes";
@@ -159,10 +160,13 @@ export const TablaOrdenes = ({ id }) => {
     // Descarga todas las ordenes posibles que marcaron en el Check
     const downloadAllPossibleOrders = () => {
         if (ordenesActuales.length <= 0) {
-            alert("No seleccionaste ninguna orden para descargar");
+            if (campos.length <= 0) {
+                alert("No hay ninguna orden para descargar");
+                return;
+            }
+            downloadAllOrders(campos);
             return;
         }
-
         // Despacha la acción asincrónica con las órdenes marcadas
         dispatch(downloadOrders(ordenesActuales));
     };
