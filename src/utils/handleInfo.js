@@ -4,13 +4,12 @@ import { encrypt, hashValue } from "./secure-data/crypt";
 
 //FUNCION HANDLE
 export const handleInputInfo = async (setLocalState, estado, { target }) => {
+    // Eliminar espacios adicionales al final, pero mantener los espacios entre palabras
+    const trimmedValue = target.value.trimEnd();
+
     //hashClave si el input es de typePassword
     if (target.name === "password") {
-        const encryptedValue = await encrypt(
-            client.KEY,
-            // hashValue(target.value)
-            target.value
-        );
+        const encryptedValue = await encrypt(client.KEY, trimmedValue);
         setLocalState({
             ...estado,
             [target.name]: encryptedValue,
@@ -21,7 +20,7 @@ export const handleInputInfo = async (setLocalState, estado, { target }) => {
     if (target.name === "genero" || target.name === "urgente") {
         const encryptedValue = await encrypt(
             client.KEY,
-            target.value.toUpperCase()
+            trimmedValue.toUpperCase()
         );
         setLocalState({
             ...estado,
@@ -30,10 +29,9 @@ export const handleInputInfo = async (setLocalState, estado, { target }) => {
         return;
     }
 
-
     const encryptedValue = await encrypt(
         client.KEY,
-        target.value.toLowerCase()
+        trimmedValue.toLowerCase()
     );
     setLocalState({
         ...estado,
