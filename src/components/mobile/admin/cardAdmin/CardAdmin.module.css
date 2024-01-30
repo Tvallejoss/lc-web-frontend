@@ -47,8 +47,7 @@
     color: green;
 }
 
-.card-info-top img {
-    width: 30px;
+.card-info-top svg {
     cursor: pointer;
     margin-right: 5px;
 }

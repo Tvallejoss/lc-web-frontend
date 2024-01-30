@@ -9,7 +9,7 @@ export const NavLogo = ({ palabra }) => {
             <div className={classes["navLogo-container"]}>
                 <div className={classes["logo-nav"]}>
                     <img
-                        src="https://cdn.discordapp.com/attachments/1095387607409635330/1134039298946105344/image.png"
+                        src={require("../../assets/images/logoLC.png")}
                         alt="LOGO-LC"
                     />
                 </div>

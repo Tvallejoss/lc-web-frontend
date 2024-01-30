@@ -6,13 +6,18 @@ import Modal from "react-modal";
 // Styles
 import classes from "./TablaMobile.module.css";
 
+// Icons
+import { IconUser, IconUsers } from "../../../assets/icons";
+
 // Components
 import { SearchInputMobile } from "../../searchInput/SearchInput";
+import { ModalCargando } from "../../modalCargando/ModalCargando";
 
 const ModalButtonsDerivaciones = ({ isOpen, onClose }) => {
     return (
         <Modal
             isOpen={isOpen}
+            ariaHideApp={false}
             onRequestClose={onClose}
             style={{
                 overlay: {
@@ -33,11 +38,18 @@ const ModalButtonsDerivaciones = ({ isOpen, onClose }) => {
         >
             <div className={classes["modal-derivaciones"]}>
                 <div className={classes["BOTONES_MODAL"]}>
-                    <Link to="/excel">
-                        <button>En lote</button>
-                    </Link>
                     <Link to="/derivaciones">
-                        <button> Individual</button>
+                        <button>
+                            {" "}
+                            <IconUser />
+                            Individual
+                        </button>
+                    </Link>
+                    <Link to="/excel">
+                        <button>
+                            {" "}
+                            <IconUsers /> En lote
+                        </button>
                     </Link>
                 </div>
             </div>
@@ -45,7 +57,7 @@ const ModalButtonsDerivaciones = ({ isOpen, onClose }) => {
     );
 };
 
-export const TablaMobile = ({ allCampos }) => {
+export const TablaMobile = ({ allCampos, setLoading, loading }) => {
     // Campos State
     const [campos, setCampos] = useState([]);
     useEffect(() => {
@@ -77,7 +89,9 @@ export const TablaMobile = ({ allCampos }) => {
             />
 
             <div className={classes["cards-container"]}>
-                {campos.length ? (
+                {loading ? (
+                    <ModalCargando />
+                ) : campos.length ? (
                     campos.map((derivacion, i) => {
                         return (
                             <Link
@@ -121,7 +135,7 @@ export const TablaMobile = ({ allCampos }) => {
                                         )}
 
                                         <p>
-                                            Estado: <span>En proceso</span>
+                                            <span>-----</span>
                                         </p>
                                     </div>
                                 </div>
@@ -129,7 +143,9 @@ export const TablaMobile = ({ allCampos }) => {
                         );
                     })
                 ) : (
-                    <>No hay Derivaciones</>
+                    <p className={classes["not-found-msg"]}>
+                        No se encuentran derivaciones
+                    </p>
                 )}
             </div>
 

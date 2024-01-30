@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { SyncLoader } from "react-spinners";
 import { logOut } from "../../../utils/auth/logOut";
 import { isAdmin } from "../../../utils/auth/isAdmin";
 import { getOrigenesFromAxios } from "../../../utils/axiosFunctions/axiosGeneric";
@@ -17,28 +16,11 @@ import { Campos } from "./campos/Campos";
 import { LogOut } from "../../logOut/LogOut";
 import { TablaAdminMobile } from "../../mobile/admin/TablaAdminMobile";
 import { OptionsPopover } from "../../mobile/admin/popUpAdminFiles/OptionsPopover";
-const ModalCargando = () => {
-    return (
-        <div
-            style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "300px",
-                width: "100%",
-            }}
-        >
-            <div>
-                <SyncLoader size={8} color={"#0b74d1"} loading={true} />
-            </div>
-        </div>
-    );
-};
+import { ModalCargando } from "../../modalCargando/ModalCargando";
 
 export const TablaAdmin = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    // const user = useSelector((state) => state.user);
     const [campos, setCampos] = useState([]);
     const [allCampos, setAllCampos] = useState([]);
     const [search, setSearch] = useState("");

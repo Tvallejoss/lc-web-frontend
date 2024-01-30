@@ -237,6 +237,7 @@ export const AddClient = () => {
                         <li>
                             <span>Estado del Cliente</span>
                             <select
+                                className={classes["select-estado"]}
                                 // value={selectedOption}
                                 name="estado"
                                 onChange={(e) =>

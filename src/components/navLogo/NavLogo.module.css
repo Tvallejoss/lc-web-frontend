@@ -19,10 +19,10 @@
     width: 70%;
     font-family: "CORDOBA";
     text-align: center;
+    cursor: default;
     color: rgba(0, 106, 185, 0.8);
     font-size: 15px;
 }
-
 
 @media (max-width: 1000px) {
     .logo-nav {
