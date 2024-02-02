@@ -6,3 +6,6 @@ export { ReactComponent as IconDownloadSmall } from "./downloadSmall.svg";
 export { ReactComponent as IconEdit } from "./edit.svg";
 export { ReactComponent as IconCheck } from "./check-circle.svg";
 export { ReactComponent as IconX } from "./x-circle.svg";
+export { ReactComponent as IconFile } from "./file.svg";
+export { ReactComponent as IconUpload } from "./upload.svg";
+export { ReactComponent as IconMenu } from "./menu.svg";

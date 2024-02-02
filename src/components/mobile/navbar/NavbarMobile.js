@@ -3,6 +3,9 @@ import React, { useState } from "react";
 // Components
 import { NavbarOpenMobile } from "./navbarOpen/NavbarOpenMobile";
 
+// Icons
+import { IconMenu } from "../../../assets/icons";
+
 // Styles
 import classes from "./NavbarMobile.module.css";
 
@@ -31,19 +34,13 @@ export const NavbarMobile = () => {
         >
             <div className={classes["navbar-logo"]}>
                 <img
-                    src="https://cdn.discordapp.com/attachments/1095387607409635330/1134039298946105344/image.png"
+                    src={require("../../../assets/images/logoLC.png")}
                     alt="LOGO"
                 />
             </div>
 
             <section className={classes["navbar-menu-icon"]}>
-                <img
-                    width="50"
-                    height="50"
-                    src="https://img.icons8.com/ios-filled/50/menu--v1.png"
-                    alt="menu--v1"
-                    onClick={navbarOpen ? handleClose : handleOpen}
-                />
+                <IconMenu onClick={navbarOpen ? handleClose : handleOpen} />
             </section>
 
             {/* Navbar expandida */}

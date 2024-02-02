@@ -5,6 +5,10 @@ import { NavLogo } from "../navLogo/NavLogo";
 
 // Styles
 import classes from "./Excel.module.css";
+
+// Icons
+import { IconFile, IconUpload } from "../../assets/icons";
+
 // Hooks
 import axios from "axios";
 import React, { useState } from "react";
@@ -96,14 +100,8 @@ export const Excel = () => {
                             onDragOver={(event) => event.preventDefault()}
                         >
                             <div className={classes["ICONOS_EXCEL"]}>
-                                <img
-                                    src="https://cdn.discordapp.com/attachments/1095387607409635330/1124372972413665300/icons8-xls-48.png"
-                                    alt="EXCEL_ICON"
-                                />
-                                <img
-                                    src="https://cdn.discordapp.com/attachments/1095387607409635330/1124375666893279273/icons8-indice-y-pulgar-50.png"
-                                    alt="MANO"
-                                />
+                                <IconUpload />
+                               
                             </div>
 
                             <p>Arraste y suelte el archivo aqui...</p>
@@ -122,10 +120,7 @@ export const Excel = () => {
                     ) : (
                         <div className={classes["UPLOAD"]}>
                             <div className={classes["ICONOS_EXCEL"]}>
-                                <img
-                                    src="https://cdn.discordapp.com/attachments/1095387607409635330/1124372972413665300/icons8-xls-48.png"
-                                    alt="EXCEL_ICON"
-                                />
+                                <IconFile />
                             </div>
 
                             <p>Excel seleccionado: {file?.name}</p>
