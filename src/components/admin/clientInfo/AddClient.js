@@ -45,8 +45,8 @@ export const AddClient = () => {
 
     const checkPassword = (e) => {
         setSecondPassword(e.target.value);
-
         if (e.target.value === firstPassword) {
+            handleInputInfo(setClientLocal, LocalClient, e)
             setError("");
         } else {
             setError("Las claves no coinciden");
@@ -55,14 +55,6 @@ export const AddClient = () => {
 
     const handleSubmit = async () => {
         if (firstPassword === secondPassword) {
-            // Modificar esto
-            const e = {
-                target: {
-                    value: firstPassword,
-                    name: "password",
-                },
-            };
-            handleInputInfo(setClientLocal, LocalClient, e).then(() => {
                 OnSubmitRegisterUser(
                     LocalClient,
                     "/register",
@@ -71,7 +63,7 @@ export const AddClient = () => {
                     setClientData,
                     "Current_Client"
                 );
-            });
+            
         } else {
             setError("Las contraseñas no coinciden");
         }
