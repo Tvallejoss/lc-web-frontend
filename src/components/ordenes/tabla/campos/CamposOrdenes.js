@@ -7,6 +7,9 @@ import { useDispatch, useSelector } from "react-redux";
 // States
 import { setOrdenesDownloadByChecked } from "../../../../state/ordenes";
 
+//icons
+import { IconDownloadSmall, IconEye } from "../../../../assets/icons";
+
 // Config
 import config from "../../../../config";
 import { decryptObj } from "../../../../utils/secure-data/decrypt";
@@ -96,17 +99,12 @@ export const CamposOrdenes = ({ orden, selectAll }) => {
             {orden ? (
                 orden.estado === "C" ? (
                     <li className={classes["acciones-ordenes"]}>
-                        <img
-                            src="https://cdn.discordapp.com/attachments/840217064978907170/1123256958196121620/icons8-descargar-64.png"
-                            alt="download--v1"
+                        <IconDownloadSmall
                             onClick={downloadFileAndUpdateStatus}
                         />
 
                         <Link to={`/PDF_PACIENTE/${orden.idOrden}`}>
-                            <img
-                                src="https://cdn.discordapp.com/attachments/1095387607409635330/1124328592143294554/icons8-ver-48.png"
-                                alt="download--v1"
-                            />
+                            <IconEye />
                         </Link>
                     </li>
                 ) : (

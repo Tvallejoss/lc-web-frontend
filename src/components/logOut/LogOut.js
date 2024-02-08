@@ -7,6 +7,7 @@ export const LogOut = ({ isOpen, onClose, onConfirm }) => {
         <Modal
             isOpen={isOpen}
             onRequestClose={onClose}
+            ariaHideApp={false}
             style={{
                 overlay: {
                     zIndex: 10,

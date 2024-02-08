@@ -8,6 +8,9 @@ import axios from "axios";
 // Config
 import config from "../../../config";
 
+// Icons
+import { IconDownload } from "../../../assets/icons/";
+
 // States
 import { downloadOrders, resetOrdenes } from "../../../state/ordenes";
 
@@ -21,27 +24,10 @@ import { downloadAllOrders } from "../../../utils/files/downloadFiles/downloadPd
 import { CamposOrdenes } from "./campos/CamposOrdenes";
 import { TablaOrdenesMobile } from "../../mobile/dashOrdenes/TablaOrdenesMobile";
 import { SearchInput } from "../../searchInput/SearchInput";
+import { ModalCargando } from "../../modalCargando/ModalCargando";
 
 // Styles
 import classes from "./TablaOrdenes.module.css";
-
-const ModalCargando = () => {
-    return (
-        <div
-            style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "200px",
-                width: "100%",
-            }}
-        >
-            <div>
-                <SyncLoader size={8} color={"#0b74d1"} loading={true} />
-            </div>
-        </div>
-    );
-};
 
 export const TablaOrdenes = ({ id }) => {
     // Token user log
@@ -150,11 +136,17 @@ export const TablaOrdenes = ({ id }) => {
             };
             setTimeout(getOrdenes, 1000);
         }
-    }, [window.innerWidth]);
+    }, []);
 
     //VIEW MOBILE
     if (window.innerWidth <= 1000) {
-        return <TablaOrdenesMobile ordenes={campos} />;
+        return (
+            <TablaOrdenesMobile
+                ordenes={campos}
+                setLoading={setLoading}
+                loading={loading}
+            />
+        );
     }
 
     // Descarga todas las ordenes posibles que marcaron en el Check
@@ -214,11 +206,7 @@ export const TablaOrdenes = ({ id }) => {
         <div className={classes["TABLA_DASH"]}>
             <div className={classes["TABLA_NAV"]}>
                 <div className={classes["filtros"]}>
-                    <img
-                        src="https://cdn.discordapp.com/attachments/840217064978907170/1123256958196121620/icons8-descargar-64.png"
-                        alt="download--v1"
-                        onClick={downloadAllPossibleOrders}
-                    />
+                    <IconDownload onClick={downloadAllPossibleOrders} />
                     <div className={classes["FILTROS"]}>
                         {/* <p>Filtrar</p> */}
                         <div>
@@ -304,7 +292,10 @@ export const TablaOrdenes = ({ id }) => {
                             );
                         })
                     ) : (
-                        <>No se encuentran ordenes </>
+                        <p className={classes["not-found-msg"]}>
+                            {" "}
+                            No se encuentran ordenes{" "}
+                        </p>
                     )}
                 </div>
             </div>

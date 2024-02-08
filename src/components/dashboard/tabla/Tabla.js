@@ -1,8 +1,8 @@
 //Components
-import { SyncLoader } from "react-spinners";
 import { Campos } from "./campos/Campos";
 import { TablaMobile } from "../../mobile/dashDerivaciones/TablaMobile";
 import { SearchInput } from "../../searchInput/SearchInput";
+import { ModalCargando } from "../../modalCargando/ModalCargando";
 
 //Hooks
 import React, { useState, useEffect } from "react";
@@ -14,24 +14,6 @@ import { resetOrdenes } from "../../../state/ordenes";
 
 //Styles
 import classes from "./Tabla.module.css";
-
-const ModalCargando = () => {
-    return (
-        <div
-            style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "200px",
-                width: "100%",
-            }}
-        >
-            <div>
-                <SyncLoader size={8} color={"#0b74d1"} loading={true} />
-            </div>
-        </div>
-    );
-};
 
 export const Tabla = () => {
     const dispatch = useDispatch();
@@ -104,10 +86,17 @@ export const Tabla = () => {
             };
             setTimeout(getOrigenes, 1000);
         }
-    }, [window.innerWidth]);
+    }, []);
 
     //VIEW MOBILE
-    if (window.innerWidth <= 1000) return <TablaMobile allCampos={allCampos} />;
+    if (window.innerWidth <= 1000)
+        return (
+            <TablaMobile
+                allCampos={allCampos}
+                setLoading={setLoading}
+                loading={loading}
+            />
+        );
 
     return (
         <div className={classes["TABLA_DASH"]}>
@@ -164,9 +153,9 @@ export const Tabla = () => {
                 <div className={classes["TABLA_D"]}>
                     <ol className={classes["Campos"]}>
                         <li>Fecha</li>
-                        <li>Derivacion</li>
+                        <li>Tipo</li>
                         <li>Nombre</li>
-                        <li>###</li>
+                        <li>Id</li>
                     </ol>
 
                     {loading ? (
@@ -182,7 +171,9 @@ export const Tabla = () => {
                             );
                         })
                     ) : (
-                        <>No se encuentran derivaciones</>
+                        <p className={classes["not-found-msg"]}>
+                            No se encuentran derivaciones
+                        </p>
                     )}
                 </div>
             </div>

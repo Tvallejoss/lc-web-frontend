@@ -12,9 +12,9 @@
 }
 
 .card-imagenes {
-    width: 50%;
+    width: 10%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-evenly;
 }
 
 .card-imagenes img {
@@ -62,8 +62,6 @@
 .card-info-bottom p {
     font-size: 0.8rem;
 }
-
-
 
 .ROJO {
     color: #f2617a;

@@ -12,7 +12,6 @@ export const OnSubmitUserLog = (
     NAVIGATE,
     setEstado,
     LOCAL_STORAGE,
-    showToastMessage
 ) => {
     const userLogAxios = new Promise((resolve, reject) =>
         axios
@@ -30,7 +29,7 @@ export const OnSubmitUserLog = (
                     } else {
                         NAVIGATE("/home");
                     }
-                }, 1000);
+                }, 2000);
             })
             .catch((error) => reject(error))
     );
@@ -40,7 +39,7 @@ export const OnSubmitUserLog = (
             render() {
                 return "Iniciando Session";
             },
-            icon: false,
+            icon: "🟢",
         },
         success: {
             render({ data }) {
@@ -55,7 +54,7 @@ export const OnSubmitUserLog = (
                     return `${data.response.data.Error}`
                 }
                 else {
-                    return `Server caido o no levantado`
+                    return `Error, vuelve a intentarlo mas tarde`
                 }
             },
         },

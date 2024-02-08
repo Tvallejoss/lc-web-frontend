@@ -28,6 +28,7 @@
 
 .NAV_TABLA_ADMIN div span {
     font-family: "cordoba";
+    cursor: default;
     width: 15%;
     color: #0b74d1;
 }
@@ -68,6 +69,7 @@
     list-style: none;
     padding: 0;
     margin: 0;
+    cursor: default;
 }
 
 .Campos li {
