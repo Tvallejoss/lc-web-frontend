@@ -18,10 +18,9 @@
     width: 20%;
     text-align: center;
     color: #707070;
+    cursor: default;
 }
 
-.VALORES_ADMIN img {
-    width: 30px;
+.VALORES_ADMIN svg {
     cursor: pointer;
-    margin-right: 5px;
 }

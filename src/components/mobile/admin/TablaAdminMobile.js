@@ -79,7 +79,7 @@ export const TablaAdminMobile = ({ data }) => {
                         return <CardAdmin origen={origen} />;
                     })
                 ) : (
-                    <>No hay origenes</>
+                    <>No se encuentran origenes</>
                 )}
             </div>
 

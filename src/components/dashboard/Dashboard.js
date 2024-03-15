@@ -6,6 +6,9 @@ import useMediaQuery from "../../utils/mediaQuery/useMediaQuery";
 // Styles
 import classes from "./Dashboard.module.css";
 
+// Icons
+import { IconUser, IconUsers } from "../../assets/icons/";
+
 // Components
 import { Tabla } from "../dashboard/tabla/Tabla";
 import { TablaOrdenes } from "../ordenes/tabla/TablaOrdenes";
@@ -15,8 +18,6 @@ import { NavbarMobile } from "../mobile/navbar/NavbarMobile";
 
 export const Dashboard = () => {
     const params = useParams();
-
-
     const isDesktop = useMediaQuery("(min-width: 1000px)");
 
     return (
@@ -37,21 +38,11 @@ export const Dashboard = () => {
                             to="/derivaciones"
                             className={classes["individual"]}
                         >
-                            <img
-                                width="48"
-                                height="48"
-                                src="https://img.icons8.com/puffy/32/user.png"
-                                alt="user"
-                            />
+                            <IconUser />
                             <p>Derivar paciente</p>
                         </Link>
                         <Link to="/excel" className={classes["lote"]}>
-                            <img
-                                width="48"
-                                height="48"
-                                src="https://img.icons8.com/pulsar-line/48/group.png"
-                                alt="group"
-                            />
+                            <IconUsers />
                             <p>Derivar en lote</p>
                         </Link>
                     </div>

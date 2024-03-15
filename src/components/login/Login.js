@@ -26,6 +26,9 @@ export const Login = () => {
     const [LocalUser, setUserLocal] = useState({});
 
     const ejecutarSubmit = () => {
+
+
+
         OnSubmitUserLog(
             LocalUser,
             "/login",
@@ -33,7 +36,6 @@ export const Login = () => {
             navigate,
             setUserData,
             "UserLoggedInfo",
-            showToastMessage
         );
         return;
     };
@@ -93,7 +95,7 @@ export const Login = () => {
                         }
                         showToastMessage(
                             "warning",
-                            "Vuelve a escribir el Usuario y la Clave"
+                            "Por favor completa el usuario/clave"
                         );
                     }}
                 >

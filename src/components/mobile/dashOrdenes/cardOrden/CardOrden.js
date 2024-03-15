@@ -6,6 +6,9 @@ import axios from "axios";
 // Styles
 import classes from "./CardOrden.module.css";
 
+// Icons
+import { IconDownloadSmall, IconEye } from "../../../../assets/icons";
+
 // Config
 import config from "../../../../config";
 import { decryptObj } from "../../../../utils/secure-data/decrypt";
@@ -64,16 +67,10 @@ export const CardOrden = ({ orden }) => {
                                         "-resultado-orden"
                                     }
                                 >
-                                    <img
-                                        src="https://cdn.discordapp.com/attachments/840217064978907170/1123256958196121620/icons8-descargar-64.png"
-                                        alt="download--v1"
-                                    />
+                                    <IconDownloadSmall />
                                 </a>
                                 <Link to={`/PDF_PACIENTE/${orden.idOrden}`}>
-                                    <img
-                                        src="https://cdn.discordapp.com/attachments/1095387607409635330/1124328592143294554/icons8-ver-48.png"
-                                        alt="download--v1"
-                                    />
+                                    <IconEye />
                                 </Link>
                             </div>
                         ) : (

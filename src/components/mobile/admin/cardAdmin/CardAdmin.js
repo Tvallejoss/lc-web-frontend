@@ -5,6 +5,10 @@ import axios from "axios";
 
 // Styles
 import classes from "./CardAdmin.module.css";
+
+// Icons
+import { IconEdit, IconCheck, IconX } from "../../../../assets/icons";
+
 // Config
 import config from "../../../../config";
 import { decryptObj } from "../../../../utils/secure-data/decrypt";
@@ -55,37 +59,23 @@ export const CardAdmin = ({ origen }) => {
                         <>
                             <div className={classes["estados"]}>
                                 <p>Estado:</p>
-                                <img
-                                    src="https://cdn.discordapp.com/attachments/1095387607409635330/1135313104427831346/image.png"
-                                    alt="X"
-                                    onClick={handleEstado}
-                                />
+                                <IconX onClick={handleEstado} />
                             </div>
 
                             <Link to={"/cliente/" + origen.cuit}>
                                 <p>Modificar Origen: </p>
-                                <img
-                                    src="https://cdn.discordapp.com/attachments/1095387607409635330/1130053992769130537/Captura_de_pantalla_2023-07-16_053043.png"
-                                    alt="download--v1"
-                                />
+                                <IconEdit />
                             </Link>
                         </>
                     ) : (
                         <>
                             <div className={classes["estados"]}>
                                 <p>Estado: </p>
-                                <img
-                                    src="https://cdn.discordapp.com/attachments/1095387607409635330/1130057093982978088/Captura_de_pantalla_2023-07-16_054316.png"
-                                    alt="V"
-                                    onClick={handleEstado}
-                                />
+                                <IconCheck onClick={handleEstado} />
                             </div>
                             <Link to={"/cliente/" + origen.cuit}>
                                 <p>Modificar Origen:</p>
-                                <img
-                                    src="https://cdn.discordapp.com/attachments/1095387607409635330/1130053992769130537/Captura_de_pantalla_2023-07-16_053043.png"
-                                    alt="download--v1"
-                                />
+                                <IconEdit />
                             </Link>
                         </>
                     )}

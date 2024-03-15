@@ -6,6 +6,7 @@ export const ModalEstado = ({ isOpen, onClose, onConfirm }) => {
         <Modal
             isOpen={isOpen}
             onRequestClose={onClose}
+            ariaHideApp={false}
             style={{
                 content: {
                     width: "400px",

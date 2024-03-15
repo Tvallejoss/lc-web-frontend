@@ -28,7 +28,7 @@ export const Campos = ({ derivacion }) => {
                         {derivacion.nombre}
                     </li>
                 ) : (
-                    <li>------</li>
+                    <li>{derivacion.nombre}</li>
                 )}
 
                 <li>{derivacion.id}</li>
