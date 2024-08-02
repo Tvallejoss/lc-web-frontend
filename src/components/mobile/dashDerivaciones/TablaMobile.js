@@ -107,8 +107,8 @@ export const TablaMobile = ({ allCampos, setLoading, loading }) => {
                                     </div>
 
                                     <div>
-                                        {derivacion.nombre !==
-                                        "Derivacion Individual" ? (
+                                        {derivacion.tipo !==
+                                        "INDIVIDUAL" ? (
                                             <h6>
                                                 {" "}
                                                 <strong>
@@ -127,8 +127,8 @@ export const TablaMobile = ({ allCampos, setLoading, loading }) => {
                                     <div
                                         className={classes["card-info-bottom"]}
                                     >
-                                        {derivacion.nombre !==
-                                        "Derivacion Individual" ? (
+                                        {derivacion.tipo !==
+                                        "INDIVIDUAL" ? (
                                             <p>Tipo: En Lote</p>
                                         ) : (
                                             <p>Tipo: Individual</p>

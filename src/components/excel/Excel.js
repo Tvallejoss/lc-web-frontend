@@ -14,15 +14,26 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useMediaQuery from "../../utils/mediaQuery/useMediaQuery";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // Config
 const config = require("../../config");
+
+// Utility function to show toast messages
+export const showToastMessage = (type, msg) => {
+    toast[type](msg, {
+        position: "top-right",
+    });
+};
 
 export const Excel = () => {
     const isDesktop = useMediaQuery("(min-width: 1000px)");
     const navigate = useNavigate();
     const [file, setFile] = useState(null);
     const [fileSelected, setFileSelected] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [showSpinner, setShowSpinner] = useState(false);
     const isUserLog = JSON.parse(localStorage.getItem("UserLoggedInfo"));
 
     function obtenerNombreSinExtension(nombreArchivo) {
@@ -31,52 +42,73 @@ export const Excel = () => {
 
     const handleFileDrop = (event) => {
         event.preventDefault();
-
         const droppedFile = event.dataTransfer.files[0];
-
         setFile(droppedFile);
         setFileSelected(true);
     };
 
     const handleFileChange = (event) => {
         event.preventDefault();
-
         const selectedFile = event.target.files[0];
-
         setFile(selectedFile);
         setFileSelected(true);
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        if (file) {
-            const fileReader = new FileReader();
-            fileReader.onload = async (event) => {
-                try {
-                    const arrayBuffer = event.target.result;
-                    const byteArray = new Uint8Array(arrayBuffer);
+        setLoading(true);
+        setShowSpinner(true);
 
-                    // eslint-disable-next-line
-                    const response = await axios.post(
-                        config.IP + config.PUERTO + "/ordenes",
-                        byteArray, // Enviar directamente el array de bytes
-                        {
-                            headers: {
-                                "Content-Type": "application/octet-stream",
-                                token: `${isUserLog}`, // Agregar el token de usuario
-                                excelName: obtenerNombreSinExtension(file.name), //NOMBRE DEL EXCEL
-                            },
+        setTimeout(async () => {
+            if (file) {
+                const fileReader = new FileReader();
+                fileReader.onload = async (event) => {
+                    try {
+                        const arrayBuffer = event.target.result;
+                        const byteArray = new Uint8Array(arrayBuffer);
+
+                        await axios.post(
+                            config.IP + config.PUERTO + "/ordenes",
+                            byteArray,
+                            {
+                                headers: {
+                                    "Content-Type": "application/octet-stream",
+                                    token: `${isUserLog}`,
+                                    excelName: obtenerNombreSinExtension(
+                                        file.name
+                                    ),
+                                },
+                            }
+                        );
+
+                        showToastMessage(
+                            "success",
+                            "Archivo subido exitosamente."
+                        );
+                        navigate("/dashboard");
+                    } catch (error) {
+                        console.error("Error al subir el archivo:", error);
+
+                        if (error.response.data.Error) {
+                            showToastMessage(
+                                "error",
+                                error.response.data.Error
+                            );
                         }
-                    );
 
-                    navigate("/dashboard");
-                } catch (error) {
-                    console.error("Error al subir el archivo:", error);
-                }
-            };
+                        showToastMessage(
+                            "error",
+                            error.response.data.errors.errors.Error
+                        );
+                    } finally {
+                        setLoading(false);
+                        setShowSpinner(false);
+                    }
+                };
 
-            fileReader.readAsArrayBuffer(file);
-        }
+                fileReader.readAsArrayBuffer(file);
+            }
+        }, 2000); // Espera 2 segundos antes de hacer la solicitud
     };
 
     return (
@@ -101,15 +133,13 @@ export const Excel = () => {
                         >
                             <div className={classes["ICONOS_EXCEL"]}>
                                 <IconUpload />
-                               
                             </div>
 
-                            <p>Arraste y suelte el archivo aqui...</p>
+                            <p>Arraste y suelte el archivo aquí...</p>
 
-                            <p>...o busquelo en su ordenador</p>
+                            <p>...o búsquelo en su ordenador</p>
 
                             <div className={classes["INPUT_FILE"]}>
-                                {/* <button>Buscar Archivo</button> */}
                                 <input
                                     type="file"
                                     onChange={handleFileChange}
@@ -126,7 +156,6 @@ export const Excel = () => {
                             <p>Excel seleccionado: {file?.name}</p>
 
                             <div className={classes["INPUT_FILE"]}>
-                                {/* <button>Buscar Archivo</button> */}
                                 <input
                                     type="file"
                                     onChange={handleFileChange}
@@ -137,7 +166,15 @@ export const Excel = () => {
                     )}
 
                     <div className={classes["BOTONES_EXCEL"]}>
-                        <button onClick={handleSubmit}>DERIVAR</button>
+                        <button
+                            onClick={handleSubmit}
+                            disabled={!fileSelected}
+                            className={`${classes.BUTTON} ${
+                                !fileSelected ? classes.disabledButton : ""
+                            }`}
+                        >
+                            DERIVAR
+                        </button>
 
                         <Link
                             to="/dashboard"
@@ -148,6 +185,14 @@ export const Excel = () => {
                     </div>
                 </div>
             </div>
+
+            {loading && showSpinner && (
+                <div className={classes.modal}>
+                    <div className={classes.spinner}></div>
+                </div>
+            )}
+
+            <ToastContainer />
         </div>
     );
 };

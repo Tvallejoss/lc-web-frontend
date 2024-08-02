@@ -15,13 +15,13 @@ export const Campos = ({ derivacion }) => {
                 <li>{derivacion.fechaEmision}</li>
 
                 <li>
-                    {derivacion.nombre !== "Derivacion Individual" ? (
+                    {derivacion.tipo !== "INDIVIDUAL" ? (
                         <p>En Lote</p>
                     ) : (
                         <p>Individual</p>
                     )}
                 </li>
-                {derivacion.nombre !== "Derivacion Individual" ? (
+                {derivacion.tipo !== "INDIVIDUAL" ? (
                     <li>
                         {" "}
                         <span className={classes["VERDE"]}>Excel:</span>{" "}

@@ -135,6 +135,7 @@
 .BOTONES_EXCEL a button {
     width: 100%;
 }
+
 .EXCEL_BUTTON {
     text-decoration: none;
     width: 100%;
@@ -144,6 +145,7 @@
 .EXCEL_BUTTON button {
     background-color: #a4a0a0;
 }
+
 .BOTONES_EXCEL button:nth-child(2) {
     background-color: #a4a0a0;
 }
@@ -155,21 +157,62 @@
     cursor: pointer;
 }
 
-@media (max-width: 1000px) {
-    .EXCEL_CONTAINER {
-        flex-direction: column;
-    }
+/* Disabled button styles */
+.disabledButton {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
 
-    .Sidebar_derivaciones {
-        display: none;
+/* Button styles */
+.BUTTON {
+    transition: background-color 0.3s;
+}
+
+.BUTTON:disabled {
+    background-color: #cccccc;
+}
+
+/* Modal styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.spinner {
+    border: 8px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #fff;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+     100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Mobile styles */
+@media only screen and (max-width: 600px) {
+    .EXCEL_CONTAINER {
+        width: 100%;
     }
 
     .BOX_EXCEL {
         width: 100%;
-        height: 80dvh;
+        height: 100%;
     }
 
-    .UPLOAD .DROP_AREA {
+    .UPLOAD {
         width: 100%;
         height: 100%;
     }
@@ -180,7 +223,6 @@
         display: flex;
         flex-direction: column;
         margin: 0;
-        flex-direction: column;
         justify-content: space-between;
         align-items: center;
     }

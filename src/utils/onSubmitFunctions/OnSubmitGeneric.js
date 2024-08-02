@@ -20,7 +20,8 @@ export const OnSubmitGeneric = (
             NAVIGATE("/dashboard");
         })
         .catch((error) => {
-            alert("Error en el submit");
+            // alert("Error en el submit");
             console.log("Error Axios orden", error);
+            return error;
         });
 };
