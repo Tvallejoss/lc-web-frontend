@@ -75,15 +75,27 @@ export const Derivaciones = () => {
         setShowSpinner(true);
 
         try {
+            console.log("Enviando solicitud...");
             let newInfo = derivacionIndividual;
-            await axios.post(
+            const response = await axios.post(
                 client.IP + client.PUERTO + "/orden",
                 addToken(newInfo)
             );
-            setDerivacionIndividual(data);
-            navigate("/dashboard");
-            showToastMessage("success", "Derivación cargada correctamente");
+
+            if (response.status === 200) {
+                console.log("Solicitud exitosa", response.data);
+                setDerivacionIndividual(response.data); // Asegúrate de que `response.data` tiene los datos correctos
+                showToastMessage("success", "Derivación cargada correctamente");
+                navigate("/dashboard");
+            } else {
+                console.log("Error en la solicitud", response);
+                showToastMessage(
+                    "error",
+                    "Error, por favor inténtelo de nuevo más tarde"
+                );
+            }
         } catch (error) {
+            console.error("Error en la solicitud", error);
             showToastMessage(
                 "error",
                 "Error, por favor inténtelo de nuevo más tarde"
@@ -91,8 +103,10 @@ export const Derivaciones = () => {
         } finally {
             setLoading(false);
             setShowSpinner(false);
+            console.log("Finalizado");
         }
     };
+
     return (
         <div className={classes["DERIVACIONES_CONTAINER"]}>
             {!isDesktop ? <NavbarMobile /> : ""}
